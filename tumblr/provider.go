@@ -2,16 +2,19 @@ package tumblr
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform/terraform"
 	"github.com/tumblr/tumblrclient.go"
 )
 
-func Provider() *schema.Provider {
+// Provider returns a terraform.ResourceProvider for the Tumblr provider.
+func Provider() terraform.ResourceProvider {
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
 			"consumer_key": {
 				Type:        schema.TypeString,
 				Required:    true,
 				DefaultFunc: schema.EnvDefaultFunc("CONSUMER_KEY", ""),
+				Description: descriptions["consumer_key"],
 			},
 			"consumer_secret": {
 				Type:        schema.TypeString,
@@ -34,6 +37,44 @@ func Provider() *schema.Provider {
 			"tumblr_post_photo": resourcePostPhoto(),
 		},
 		ConfigureFunc: providerConfigure,
+	}
+}
+
+var descriptions map[string]string
+var endpointServiceNames []string
+
+func init() {
+	descriptions = map[string]string{
+		"consumer_key": "PENDING",
+
+		"consumer_secret": "PENDING",
+
+		"user_token": "PENDING",
+
+		"user_token_secret": "PENDING",
+
+		"blog": "blog-identifier",
+
+		"state": "The state of the post. Specify one of the following:\n " +
+			" published, draft, queue, private",
+
+		"tags": "Comma-separated tags for this post",
+
+		"data": "The GMT date and time of the post, as a string",
+
+		"format": "Sets the format type of post. Supported formats are:\n " +
+			" html & markdown",
+
+		"caption": "The user-supplied caption, HTML allowed",
+
+		"link": "The 'click-through URL' for the photo",
+
+		"data64_file": "A file, then the contents of an image file is encoded using base64,\n " +
+			" limit 10MB",
+
+		"title": "The optional title of the post, HTML entities must be escaped",
+
+		"body": "The full post body, HTML allowed",
 	}
 }
 

@@ -28,10 +28,10 @@ func TestProvider_impl(t *testing.T) {
 }
 
 func testAccPreCheck(t *testing.T) {
-	for _, param := range []string{"username", "api_key", "endpoint_url"} {
+	for _, param := range []string{"consumer_key", "consumer_secret", "user_token", "user_token_secret"} {
 		value, _ := testAccProvider.Schema[param].DefaultFunc()
 		if value == "" {
-			t.Fatalf("A Tumblr %s was not found. Read tumblr-go docs for how to configure this.", param)
+			t.Fatalf("A Tumblr %s was not found. Read tumblr docs for how to configure this.", param)
 		}
 	}
 }

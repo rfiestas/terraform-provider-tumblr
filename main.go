@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/hashicorp/terraform/plugin"
 	"github.com/hashicorp/terraform/terraform"
-	"github.com/terraform_provider_tumblr/tumblr"
+	"github.com/rfiestas/terraform-provider-tumblr/tumblr"
 )
 
 func main() {
