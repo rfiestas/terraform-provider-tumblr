@@ -12,6 +12,8 @@ Currently, the following tumblr resources are supported (or partially supported)
 
 * `tumblr_post_text`
 * `tumblr_post_photo`
+* `tumblr_post_quote`
+* `tumblr_post_link`
 
 ## Requirements
 
@@ -19,11 +21,17 @@ Currently, the following tumblr resources are supported (or partially supported)
 
 ## Usage
 
+### Install
+
+```
+go build -o ~/.terraform.d/plugins/terraform-provider-tumblr
+```
+
 ### Provider Configuration
 
 The provider only requires some configuration settings. Get your secrets from your tumblr account.
 Use [tumblr/settings](https://www.tumblr.com/settings/apps) to get the *OAuth Consumer Key* and *OAuth Consumer Secret* 
-and then validate on PENDING
+and then validate on [oauth page](https://api.tumblr.com/console/calls/user/info)
 
 #### `tumblr`
 
@@ -59,13 +67,3 @@ PENDING
 
 ## License
 `terraform-provider-tumblr` is provided *"as-is"* under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0).
-
-## Others
-Build and install provider.
-```
-go build -o ~/.terraform.d/plugins/terraform-provider-tumblr
-```
-
-```
-terraform init
-```
