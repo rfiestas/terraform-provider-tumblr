@@ -36,6 +36,7 @@ func Provider() terraform.ResourceProvider {
 			"tumblr_post_text":  resourcePostText(),
 			"tumblr_post_photo": resourcePostPhoto(),
 			"tumblr_post_quote": resourcePostQuote(),
+			"tumblr_post_link":  resourcePostLink(),
 		},
 		ConfigureFunc: providerConfigure,
 	}
@@ -80,6 +81,16 @@ func init() {
 		"quote": "The full text of the quote, HTML entities must be escaped",
 
 		"source": "Cited source, HTML allowed",
+
+		"url": "The link",
+
+		"description": "A user-supplied description, HTML allowed",
+
+		"thumbnail": "The url of an image to use as a thumbnail for the post",
+
+		"excerpt": "An excerpt from the page the link points to, HTML entities should be escaped",
+
+		"author": "The name of the author from the page the link points to, HTML entities should be escaped",
 	}
 }
 
