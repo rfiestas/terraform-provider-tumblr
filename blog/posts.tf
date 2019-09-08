@@ -34,3 +34,12 @@ resource "tumblr_post_quote" "first_quote" {
     source = "https://www.terraform.io/docs/configuration/providers.html#third-party-plugins"
     tags   = "terraform,terraform provider,tumblr,quote"
 }
+
+resource "tumblr_post_link" "first_link" {
+    blog        = "${var.blog}"
+    title       = "terraform provider for tumblr"
+    url         = "https://github.com/rfiestas/terraform-provider-tumblr"
+    thumbnail   = "https://repository-images.githubusercontent.com/206975372/3a24af00-d275-11e9-8c20-11bd31b5aaaf"
+    author      = "rfiestas"
+    tags        = "terraform,terraform provider,tumblr,link"
+}
