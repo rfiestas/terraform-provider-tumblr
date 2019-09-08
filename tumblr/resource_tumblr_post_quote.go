@@ -24,12 +24,12 @@ func resourcePostQuote() *schema.Resource {
 			"slug":   slugPostSchema(),
 			"quote": {
 				Type:        schema.TypeString,
-				Optional:    true,
+				Required:    true,
 				Description: descriptions["quote"],
 			},
 			"source": {
 				Type:        schema.TypeString,
-				Required:    true,
+				Optional:    true,
 				Description: descriptions["source"],
 			},
 		},
