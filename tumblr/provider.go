@@ -35,6 +35,7 @@ func Provider() terraform.ResourceProvider {
 		ResourcesMap: map[string]*schema.Resource{
 			"tumblr_post_text":  resourcePostText(),
 			"tumblr_post_photo": resourcePostPhoto(),
+			"tumblr_post_quote": resourcePostQuote(),
 		},
 		ConfigureFunc: providerConfigure,
 	}
@@ -75,6 +76,10 @@ func init() {
 		"title": "The optional title of the post, HTML entities must be escaped",
 
 		"body": "The full post body, HTML allowed",
+
+		"quote": "The full text of the quote, HTML entities must be escaped",
+
+		"source": "Cited source, HTML allowed",
 	}
 }
 
