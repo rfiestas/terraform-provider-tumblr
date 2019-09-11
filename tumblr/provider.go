@@ -37,6 +37,8 @@ func Provider() terraform.ResourceProvider {
 			"tumblr_post_photo": resourcePostPhoto(),
 			"tumblr_post_quote": resourcePostQuote(),
 			"tumblr_post_link":  resourcePostLink(),
+			"tumblr_post_audio": resourcePostAudio(),
+			"tumblr_post_video": resourcePostVideo(),
 		},
 		ConfigureFunc: providerConfigure,
 	}
@@ -78,7 +80,7 @@ func init() {
 
 		"source_photo": "The photo source URL",
 
-		"data": "One or more image files (submit multiple times to create a slide show), limit 10MB",
+		"data_photo": "One or more image files (submit multiple times to create a slide show), limit 10MB",
 
 		"data64": "A file, then the contents of an image file is encoded using base64,\n " +
 			" limit 10MB",
@@ -100,6 +102,15 @@ func init() {
 		"excerpt": "An excerpt from the page the link points to, HTML entities should be escaped",
 
 		"author": "The name of the author from the page the link points to, HTML entities should be escaped",
+
+		"external_url": "The URL of the site that hosts the audio file (not tumblr)",
+
+		"data_audio": "An audio file, limit 10MB",
+
+		"embed": "HTML embed code for the video or a URI to the video.\n " +
+			"If you provide an unsupported service's URI you may receive a 400 response.",
+
+		"data_video": "The contents of a video file encoded using base64,A video file, limit 100MB",
 	}
 }
 

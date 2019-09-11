@@ -43,3 +43,18 @@ resource "tumblr_post_link" "first_link" {
     thumbnail   = "https://repository-images.githubusercontent.com/206975372/3a24af00-d275-11e9-8c20-11bd31b5aaaf"
     tags        = "terraform,terraform provider,tumblr,link"
 }
+
+
+resource "tumblr_post_audio" "first_audio" {
+    blog         = "${var.blog}"
+    caption      = "First audio applied by terraform-provider-tumblr"    
+    external_url = "https://soundcloud.com/club-bizarre/free-download-kraftwerk-we-are"
+    tags         = "terraform,terraform provider,tumblr,audio"
+}
+
+resource "tumblr_post_video" "first_video" {
+    blog         = "${var.blog}"
+    caption      = "First video applied by terraform-provider-tumblr"    
+    embed        = "https://www.youtube.com/watch?v=TMayVLSQ6yM"
+    tags         = "terraform,terraform provider,tumblr,video"
+}
