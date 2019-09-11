@@ -6,7 +6,7 @@ import (
 	"github.com/tumblr/tumblrclient.go"
 )
 
-var fieldsPhotoPosts = []string{"caption", "link", "data`"}
+var fieldsPhotoPosts = []string{"caption", "link"}
 
 func resourcePostPhoto() *schema.Resource {
 	return &schema.Resource{
@@ -41,7 +41,7 @@ func resourcePostPhoto() *schema.Resource {
 			"data": &schema.Schema{
 				Type:        schema.TypeString,
 				Optional:    true,
-				Description: descriptions["data"],
+				Description: descriptions["data_photo"],
 				Removed:     "Pending to implement, default is data64",
 			},
 			"data64": &schema.Schema{
@@ -58,11 +58,8 @@ func resourcePostPhoto() *schema.Resource {
 
 func resourcePostPhotoCreate(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
-	params := generateParams(d, "photo", append(fieldsAllPosts, fieldsPhotoPosts...))
-	//if d.HasChange("data64") {
-	//	params.Add("data64", fileToBase64(d.Get("data64_file").(string)))
-	//}
 
+	params := generateParams(d, "photo", append(fieldsAllPosts, fieldsPhotoPosts...))
 	res, err := tumblr.CreatePost(client, d.Get("blog").(string), params)
 	if err != nil {
 		return err
@@ -80,10 +77,6 @@ func resourcePostPhotoUpdate(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
 
 	params := generateParams(d, "photo", append(fieldsAllPosts, fieldsPhotoPosts...))
-	//if d.HasChange("data64_file") {
-	//	params.Add("data64", fileToBase64(d.Get("data64_file").(string)))
-	//}
-
 	err := tumblr.EditPost(client, d.Get("blog").(string), stringToUint(d.Id()), params)
 	if err != nil {
 		return err
