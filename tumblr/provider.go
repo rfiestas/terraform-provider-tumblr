@@ -43,7 +43,6 @@ func Provider() terraform.ResourceProvider {
 }
 
 var descriptions map[string]string
-var endpointServiceNames []string
 
 func init() {
 	descriptions = map[string]string{
