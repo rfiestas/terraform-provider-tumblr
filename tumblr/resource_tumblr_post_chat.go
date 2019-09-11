@@ -40,6 +40,7 @@ func resourcePostChat() *schema.Resource {
 
 func resourcePostChatCreate(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
+
 	params := generateParams(d, "chat", append(fieldsAllPosts, fieldsChatPosts...))
 	res, err := tumblr.CreatePost(client, d.Get("blog").(string), params)
 	if err != nil {
@@ -52,8 +53,8 @@ func resourcePostChatCreate(d *schema.ResourceData, m interface{}) error {
 }
 
 func resourcePostChatRead(d *schema.ResourceData, m interface{}) error {
-
 	client := m.(*tumblrclient.Client)
+
 	params := url.Values{}
 	params.Add("type", "chat")
 	params.Add("id", d.Id())
@@ -75,6 +76,7 @@ func resourcePostChatRead(d *schema.ResourceData, m interface{}) error {
 
 func resourcePostChatUpdate(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
+
 	params := generateParams(d, "chat", append(fieldsAllPosts, fieldsChatPosts...))
 	err := tumblr.EditPost(client, d.Get("blog").(string), stringToUint(d.Id()), params)
 	if err != nil {
@@ -86,6 +88,7 @@ func resourcePostChatUpdate(d *schema.ResourceData, m interface{}) error {
 
 func resourcePostChatDelete(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
+
 	err := tumblr.DeletePost(client, d.Get("blog").(string), stringToUint(d.Id()))
 	if err != nil {
 		return err
