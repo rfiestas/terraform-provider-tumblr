@@ -1,5 +1,5 @@
-
 variable "blog" {
-    type = "string"
-    default = "terraform-provider-for"
+  type    = "string"
+  default = "terraform-provider-for"
 }
+
