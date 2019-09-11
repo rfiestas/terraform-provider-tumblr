@@ -1,12 +1,15 @@
 package tumblr
 
 import (
+	"fmt"
+	"net/url"
+
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/tumblr/tumblr.go"
 	"github.com/tumblr/tumblrclient.go"
 )
 
-var fieldsPhotoPosts = []string{"caption", "link"}
+var fieldsPhotoPosts = []string{"caption", "link", "source"}
 
 func resourcePostPhoto() *schema.Resource {
 	return &schema.Resource{
@@ -33,21 +36,23 @@ func resourcePostPhoto() *schema.Resource {
 				Description: descriptions["link"],
 			},
 			"source": &schema.Schema{
-				Type:        schema.TypeString,
-				Optional:    true,
-				Description: descriptions["source_photo"],
-				Removed:     "Pending to implement, default is data64",
+				Type:          schema.TypeString,
+				Optional:      true,
+				Description:   descriptions["source_photo"],
+				ConflictsWith: []string{"data", "data64"},
 			},
 			"data": &schema.Schema{
-				Type:        schema.TypeString,
-				Optional:    true,
-				Description: descriptions["data_photo"],
-				Removed:     "Pending to implement, default is data64",
+				Type:          schema.TypeString,
+				Optional:      true,
+				Description:   descriptions["data_photo"],
+				Removed:       "Pending to implement, default is data64",
+				ConflictsWith: []string{"source", "data64"},
 			},
 			"data64": &schema.Schema{
-				Type:        schema.TypeString,
-				Required:    true,
-				Description: descriptions["data64"],
+				Type:          schema.TypeString,
+				Optional:      true,
+				Description:   descriptions["data64"],
+				ConflictsWith: []string{"source", "data"},
 				StateFunc: func(val interface{}) string {
 					return stringToMd5(val.(string))
 				},
@@ -58,6 +63,14 @@ func resourcePostPhoto() *schema.Resource {
 
 func resourcePostPhotoCreate(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
+
+	_, sourceOk := d.GetOk("source")
+	_, dataOk := d.GetOk("data")
+	_, data64Ok := d.GetOk("data64")
+
+	if !sourceOk && !dataOk && !data64Ok {
+		return fmt.Errorf("One of source, data or data64 must be assigned")
+	}
 
 	params := generateParams(d, "photo", append(fieldsAllPosts, fieldsPhotoPosts...))
 	res, err := tumblr.CreatePost(client, d.Get("blog").(string), params)
@@ -70,6 +83,24 @@ func resourcePostPhotoCreate(d *schema.ResourceData, m interface{}) error {
 }
 
 func resourcePostPhotoRead(d *schema.ResourceData, m interface{}) error {
+	client := m.(*tumblrclient.Client)
+
+	params := url.Values{}
+	params.Add("type", "photo")
+	params.Add("id", d.Id())
+	res, err := tumblr.GetPosts(client, d.Get("blog").(string), params)
+	if err != nil {
+		d.SetId("")
+		return nil
+	}
+
+	for _, key := range append(fieldsAllPosts, fieldsPhotoPosts...) {
+		value, err := res.Get(0).GetProperty(toCamelCase(key))
+		if err == nil {
+			d.Set(key, value)
+		}
+	}
+
 	return nil
 }
 
