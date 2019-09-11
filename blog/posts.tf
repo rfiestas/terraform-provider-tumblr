@@ -65,3 +65,12 @@ resource "tumblr_post_chat" "first_chat" {
     conversation = "${file("resources/chat.txt")}"
     tags         = "terraform,terraform provider,tumblr,chat"
 }
+
+resource "tumblr_post_photo" "apollo12" {
+    blog        = "${var.blog}"
+    caption     = "<p>50 Years Ago Apollo 11 Launches Into History</p><small>At 9:32 a.m. EDT, July 16, 1969, Apollo 11 launched from Florida on a mission to the Moon.</small>"
+    link        = "https://www.nasa.gov/multimedia/imagegallery/iotd.html"
+    source      = "https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/liftoff_0.jpg"
+    tags        = "terraform,terraform provider,tumblr,photo,nasa,apollo"
+    
+}
