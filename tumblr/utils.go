@@ -9,10 +9,16 @@ import (
 	"io/ioutil"
 	"net/url"
 	"os"
+	"regexp"
 	"strconv"
+	"strings"
 
 	"github.com/hashicorp/terraform/helper/schema"
 )
+
+var camelCase = regexp.MustCompile("(^[A-Za-z])|_([A-Za-z])")
+var snakeCaseMatchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
+var snakeCaseMatchAllCap = regexp.MustCompile("([a-z0-9])([A-Z])")
 
 func fileToBase64(filePath string) string {
 	f, _ := os.Open(filePath)
@@ -64,4 +70,18 @@ func generateParams(d *schema.ResourceData, postType string, fields []string) ur
 	}
 
 	return params
+}
+
+// toCamelCase foo_var_foo_var to FooVarFooVar
+func toCamelCase(str string) string {
+	return camelCase.ReplaceAllStringFunc(str, func(s string) string {
+		return strings.ToUpper(strings.Replace(s, "_", "", -1))
+	})
+}
+
+// toSnakeCase FooVarFooVar to foo_var_foo_var
+func toSnakeCase(str string) string {
+	snake := snakeCaseMatchFirstCap.ReplaceAllString(str, "${1}_${2}")
+	snake = snakeCaseMatchAllCap.ReplaceAllString(snake, "${1}_${2}")
+	return strings.ToLower(snake)
 }
