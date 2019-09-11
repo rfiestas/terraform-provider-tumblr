@@ -52,6 +52,7 @@ func resourcePostVideo() *schema.Resource {
 
 func resourcePostVideoCreate(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
+
 	_, embedOk := d.GetOk("embed")
 	_, dataOk := d.GetOk("data")
 
@@ -72,13 +73,6 @@ func resourcePostVideoCreate(d *schema.ResourceData, m interface{}) error {
 
 func resourcePostVideoRead(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
-
-	_, embedOk := d.GetOk("embed")
-	_, dataOk := d.GetOk("data")
-
-	if !embedOk && !dataOk {
-		return fmt.Errorf("One of embed or data must be assigned")
-	}
 
 	params := url.Values{}
 	params.Add("type", "video")
@@ -101,6 +95,7 @@ func resourcePostVideoRead(d *schema.ResourceData, m interface{}) error {
 
 func resourcePostVideoUpdate(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
+
 	params := generateParams(d, "video", append(fieldsAllPosts, fieldsVideoPosts...))
 	err := tumblr.EditPost(client, d.Get("blog").(string), stringToUint(d.Id()), params)
 	if err != nil {
@@ -112,6 +107,7 @@ func resourcePostVideoUpdate(d *schema.ResourceData, m interface{}) error {
 
 func resourcePostVideoDelete(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
+
 	err := tumblr.DeletePost(client, d.Get("blog").(string), stringToUint(d.Id()))
 	if err != nil {
 		return err
