@@ -1,6 +1,8 @@
 package tumblr
 
 import (
+	"net/url"
+
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/tumblr/tumblr.go"
 	"github.com/tumblr/tumblrclient.go"
@@ -58,6 +60,7 @@ func resourcePostLink() *schema.Resource {
 
 func resourcePostLinkCreate(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
+
 	params := generateParams(d, "link", append(fieldsAllPosts, fieldsLinkPosts...))
 	res, err := tumblr.CreatePost(client, d.Get("blog").(string), params)
 	if err != nil {
@@ -70,11 +73,30 @@ func resourcePostLinkCreate(d *schema.ResourceData, m interface{}) error {
 }
 
 func resourcePostLinkRead(d *schema.ResourceData, m interface{}) error {
+	client := m.(*tumblrclient.Client)
+
+	params := url.Values{}
+	params.Add("type", "link")
+	params.Add("id", d.Id())
+	res, err := tumblr.GetPosts(client, d.Get("blog").(string), params)
+	if err != nil {
+		d.SetId("")
+		return nil
+	}
+
+	for _, key := range append(fieldsAllPosts, fieldsLinkPosts...) {
+		value, err := res.Get(0).GetProperty(toCamelCase(key))
+		if err == nil {
+			d.Set(key, value)
+		}
+	}
+
 	return nil
 }
 
 func resourcePostLinkUpdate(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
+
 	params := generateParams(d, "link", append(fieldsAllPosts, fieldsLinkPosts...))
 	err := tumblr.EditPost(client, d.Get("blog").(string), stringToUint(d.Id()), params)
 	if err != nil {
@@ -86,6 +108,7 @@ func resourcePostLinkUpdate(d *schema.ResourceData, m interface{}) error {
 
 func resourcePostLinkDelete(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
+
 	err := tumblr.DeletePost(client, d.Get("blog").(string), stringToUint(d.Id()))
 	if err != nil {
 		return err
