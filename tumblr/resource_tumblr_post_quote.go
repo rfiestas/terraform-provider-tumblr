@@ -30,7 +30,7 @@ func resourcePostQuote() *schema.Resource {
 			"source": {
 				Type:        schema.TypeString,
 				Optional:    true,
-				Description: descriptions["source"],
+				Description: descriptions["source_quote"],
 			},
 		},
 	}

@@ -61,14 +61,24 @@ func init() {
 
 		"tags": "Comma-separated tags for this post",
 
-		"data": "The GMT date and time of the post, as a string",
+		"tweet": "Manages the autotweet (if enabled) for this post: set to off for no tweet,\n " +
+			"or enter text to override the default tweet",
+
+		"date": "The GMT date and time of the post, as a string",
 
 		"format": "Sets the format type of post. Supported formats are:\n " +
 			" html & markdown",
+		"slug": "Add a short text summary to the end of the post URL",
+
+		"native_inline_images": "Convert any external image URLs to Tumblr image URLs",
 
 		"caption": "The user-supplied caption, HTML allowed",
 
 		"link": "The 'click-through URL' for the photo",
+
+		"source_photo": "The photo source URL",
+
+		"data": "One or more image files (submit multiple times to create a slide show), limit 10MB",
 
 		"data64": "A file, then the contents of an image file is encoded using base64,\n " +
 			" limit 10MB",
@@ -79,7 +89,7 @@ func init() {
 
 		"quote": "The full text of the quote, HTML entities must be escaped",
 
-		"source": "Cited source, HTML allowed",
+		"source_quote": "Cited source, HTML allowed",
 
 		"url": "The link",
 

@@ -29,6 +29,15 @@ func tagsPostSchema() *schema.Schema {
 	}
 }
 
+func tweetPostSchema() *schema.Schema {
+	return &schema.Schema{
+		Type:        schema.TypeString,
+		Optional:    true,
+		Description: descriptions["tweet"],
+		Removed:     "Pending to implement, default is none",
+	}
+}
+
 func datePostSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:        schema.TypeString,
@@ -51,6 +60,15 @@ func slugPostSchema() *schema.Schema {
 		Type:        schema.TypeString,
 		Optional:    true,
 		Description: descriptions["slug"],
-		Removed:     "Pending to implement",
+		Removed:     "Pending to implement, default is dynamic",
+	}
+}
+
+func nativeInlineImagesPostSchema() *schema.Schema {
+	return &schema.Schema{
+		Type:        schema.TypeBool,
+		Optional:    true,
+		Description: descriptions["native_inline_images"],
+		Removed:     "Pending to implement, default is false",
 	}
 }

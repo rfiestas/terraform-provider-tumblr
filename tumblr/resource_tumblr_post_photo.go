@@ -32,6 +32,18 @@ func resourcePostPhoto() *schema.Resource {
 				Optional:    true,
 				Description: descriptions["link"],
 			},
+			"source": &schema.Schema{
+				Type:        schema.TypeString,
+				Optional:    true,
+				Description: descriptions["source_photo"],
+				Removed:     "Pending to implement, default is data64",
+			},
+			"data": &schema.Schema{
+				Type:        schema.TypeString,
+				Optional:    true,
+				Description: descriptions["data"],
+				Removed:     "Pending to implement, default is data64",
+			},
 			"data64": &schema.Schema{
 				Type:        schema.TypeString,
 				Required:    true,
