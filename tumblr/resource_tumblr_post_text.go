@@ -40,6 +40,7 @@ func resourcePostText() *schema.Resource {
 
 func resourcePostTextCreate(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
+
 	params := generateParams(d, "text", append(fieldsAllPosts, fieldsTextPosts...))
 	res, err := tumblr.CreatePost(client, d.Get("blog").(string), params)
 	if err != nil {
@@ -52,8 +53,8 @@ func resourcePostTextCreate(d *schema.ResourceData, m interface{}) error {
 }
 
 func resourcePostTextRead(d *schema.ResourceData, m interface{}) error {
-
 	client := m.(*tumblrclient.Client)
+
 	params := url.Values{}
 	params.Add("type", "text")
 	params.Add("id", d.Id())
@@ -75,6 +76,7 @@ func resourcePostTextRead(d *schema.ResourceData, m interface{}) error {
 
 func resourcePostTextUpdate(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
+
 	params := generateParams(d, "text", append(fieldsAllPosts, fieldsTextPosts...))
 	err := tumblr.EditPost(client, d.Get("blog").(string), stringToUint(d.Id()), params)
 	if err != nil {
@@ -86,6 +88,7 @@ func resourcePostTextUpdate(d *schema.ResourceData, m interface{}) error {
 
 func resourcePostTextDelete(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
+
 	err := tumblr.DeletePost(client, d.Get("blog").(string), stringToUint(d.Id()))
 	if err != nil {
 		return err
