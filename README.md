@@ -14,6 +14,9 @@ Currently, the following tumblr resources are supported (or partially supported)
 * `tumblr_post_photo`
 * `tumblr_post_quote`
 * `tumblr_post_link`
+* `tumblr_post_chat`
+* `tumblr_post_audio`
+* `tumblr_post_video`
 
 ## Requirements
 
