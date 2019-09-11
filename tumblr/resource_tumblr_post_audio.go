@@ -52,6 +52,7 @@ func resourcePostAudio() *schema.Resource {
 
 func resourcePostAudioCreate(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
+
 	_, externalURLOk := d.GetOk("external_url")
 	_, dataOk := d.GetOk("data")
 
@@ -72,13 +73,6 @@ func resourcePostAudioCreate(d *schema.ResourceData, m interface{}) error {
 
 func resourcePostAudioRead(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
-
-	_, externalURLOk := d.GetOk("external_url")
-	_, dataOk := d.GetOk("data")
-
-	if !externalURLOk && !dataOk {
-		return fmt.Errorf("One of external_url or data must be assigned")
-	}
 
 	params := url.Values{}
 	params.Add("type", "audio")
@@ -101,6 +95,7 @@ func resourcePostAudioRead(d *schema.ResourceData, m interface{}) error {
 
 func resourcePostAudioUpdate(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
+
 	params := generateParams(d, "audio", append(fieldsAllPosts, fieldsAudioPosts...))
 	err := tumblr.EditPost(client, d.Get("blog").(string), stringToUint(d.Id()), params)
 	if err != nil {
@@ -112,6 +107,7 @@ func resourcePostAudioUpdate(d *schema.ResourceData, m interface{}) error {
 
 func resourcePostAudioDelete(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
+
 	err := tumblr.DeletePost(client, d.Get("blog").(string), stringToUint(d.Id()))
 	if err != nil {
 		return err
