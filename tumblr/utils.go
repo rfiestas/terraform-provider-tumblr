@@ -1,14 +1,9 @@
 package tumblr
 
 import (
-	"bufio"
 	"crypto/md5"
-	"encoding/base64"
 	"encoding/hex"
-	"io"
-	"io/ioutil"
 	"net/url"
-	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -19,15 +14,6 @@ import (
 var camelCase = regexp.MustCompile("(^[A-Za-z])|_([A-Za-z])")
 var snakeCaseMatchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
 var snakeCaseMatchAllCap = regexp.MustCompile("([a-z0-9])([A-Z])")
-
-func fileToBase64(filePath string) string {
-	f, _ := os.Open(filePath)
-	defer f.Close()
-	reader := bufio.NewReader(f)
-	content, _ := ioutil.ReadAll(reader)
-	encoded := base64.StdEncoding.EncodeToString(content)
-	return encoded
-}
 
 func stringToUint(str string) uint64 {
 	u, err := strconv.ParseUint(str, 10, 64)
@@ -42,21 +28,12 @@ func uintToString(str uint64) string {
 	return u
 }
 
-func hashFileMd5(filePath string) string {
+func stringToMd5(str string) string {
 	var returnMD5String string
-	file, err := os.Open(filePath)
-	if err != nil {
-		return ""
-	}
-	defer file.Close()
 
-	hash := md5.New()
-	if _, err := io.Copy(hash, file); err != nil {
-		return ""
-	}
-
-	hashInBytes := hash.Sum(nil)[:16]
-	returnMD5String = hex.EncodeToString(hashInBytes)
+	hasher := md5.New()
+	hasher.Write([]byte(str))
+	returnMD5String = hex.EncodeToString(hasher.Sum(nil))
 
 	return returnMD5String
 }

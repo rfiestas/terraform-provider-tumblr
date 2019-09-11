@@ -70,7 +70,7 @@ func init() {
 
 		"link": "The 'click-through URL' for the photo",
 
-		"data64_file": "A file, then the contents of an image file is encoded using base64,\n " +
+		"data64": "A file, then the contents of an image file is encoded using base64,\n " +
 			" limit 10MB",
 
 		"title": "The optional title of the post, HTML entities must be escaped",

@@ -2,23 +2,7 @@ package tumblr
 
 import (
 	"fmt"
-	"os"
 )
-
-func validateFileExist(v interface{}, k string) (ws []string, es []error) {
-	var errs []error
-	var warns []string
-	value, ok := v.(string)
-	if !ok {
-		errs = append(errs, fmt.Errorf("Expected name to be string"))
-		return warns, errs
-	}
-	if _, err := os.Stat(value); os.IsNotExist(err) {
-		errs = append(errs, fmt.Errorf("File %s not exist", value))
-		return warns, errs
-	}
-	return warns, errs
-}
 
 func validateState(v interface{}, k string) (ws []string, es []error) {
 	var errs []error
