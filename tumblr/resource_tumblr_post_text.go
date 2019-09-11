@@ -1,6 +1,8 @@
 package tumblr
 
 import (
+	"net/url"
+
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/tumblr/tumblr.go"
 	"github.com/tumblr/tumblrclient.go"
@@ -50,6 +52,24 @@ func resourcePostTextCreate(d *schema.ResourceData, m interface{}) error {
 }
 
 func resourcePostTextRead(d *schema.ResourceData, m interface{}) error {
+
+	client := m.(*tumblrclient.Client)
+	params := url.Values{}
+	params.Add("type", "text")
+	params.Add("id", d.Id())
+	res, err := tumblr.GetPosts(client, d.Get("blog").(string), params)
+	if err != nil {
+		d.SetId("")
+		return nil
+	}
+
+	for _, key := range append(fieldsAllPosts, fieldsTextPosts...) {
+		value, err := res.Get(0).GetProperty(toCamelCase(key))
+		if err == nil {
+			d.Set(key, value)
+		}
+	}
+
 	return nil
 }
 
