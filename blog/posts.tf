@@ -58,3 +58,10 @@ resource "tumblr_post_video" "first_video" {
     embed        = "https://www.youtube.com/watch?v=TMayVLSQ6yM"
     tags         = "terraform,terraform provider,tumblr,video"
 }
+
+resource "tumblr_post_chat" "first_chat" {
+    blog         = "${var.blog}"
+    title        = "First chat applied by terraform-provider-tumblr"    
+    conversation = "${file("resources/chat.txt")}"
+    tags         = "terraform,terraform provider,tumblr,chat"
+}
