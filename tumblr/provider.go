@@ -39,6 +39,7 @@ func Provider() terraform.ResourceProvider {
 			"tumblr_post_link":  resourcePostLink(),
 			"tumblr_post_audio": resourcePostAudio(),
 			"tumblr_post_video": resourcePostVideo(),
+			"tumblr_post_chat":  resourcePostChat(),
 		},
 		ConfigureFunc: providerConfigure,
 	}
@@ -111,6 +112,8 @@ func init() {
 			"If you provide an unsupported service's URI you may receive a 400 response.",
 
 		"data_video": "The contents of a video file encoded using base64,A video file, limit 100MB",
+
+		"conversation": "The text of the conversation/chat, with dialogue labels (no HTML)",
 	}
 }
 
