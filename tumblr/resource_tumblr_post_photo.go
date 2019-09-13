@@ -69,14 +69,17 @@ func resourcePostPhotoCreate(d *schema.ResourceData, m interface{}) error {
 	_, data64Ok := d.GetOk("data64")
 
 	if !sourceOk && !dataOk && !data64Ok {
+		d.SetId("")
 		return fmt.Errorf("One of source, data or data64 must be assigned")
 	}
 
 	params := generateParams(d, "photo", append(fieldsAllPosts, fieldsPhotoPosts...))
 	res, err := tumblr.CreatePost(client, d.Get("blog").(string), params)
 	if err != nil {
+		d.SetId("")
 		return err
 	}
+
 	d.SetId(uintToString(res.Id))
 
 	return resourcePostPhotoRead(d, m)
@@ -91,7 +94,7 @@ func resourcePostPhotoRead(d *schema.ResourceData, m interface{}) error {
 	res, err := tumblr.GetPosts(client, d.Get("blog").(string), params)
 	if err != nil {
 		d.SetId("")
-		return nil
+		return err
 	}
 
 	for _, key := range append(fieldsAllPosts, fieldsPhotoPosts...) {
@@ -110,8 +113,10 @@ func resourcePostPhotoUpdate(d *schema.ResourceData, m interface{}) error {
 	params := generateParams(d, "photo", append(fieldsAllPosts, fieldsPhotoPosts...))
 	err := tumblr.EditPost(client, d.Get("blog").(string), stringToUint(d.Id()), params)
 	if err != nil {
+		d.SetId("")
 		return err
 	}
+
 	return resourcePostPhotoRead(d, m)
 }
 
@@ -122,6 +127,6 @@ func resourcePostPhotoDelete(d *schema.ResourceData, m interface{}) error {
 	if err != nil {
 		return err
 	}
-	d.SetId("")
+
 	return nil
 }

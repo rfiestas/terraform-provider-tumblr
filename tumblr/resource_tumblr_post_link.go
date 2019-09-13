@@ -41,7 +41,7 @@ func resourcePostLink() *schema.Resource {
 			},
 			"thumbnail": {
 				Type:        schema.TypeString,
-				Optional:    true,
+				Required:    true, //Optional on Tumblr api documentation.
 				Description: descriptions["thumbnail"],
 			},
 			"excerpt": {
@@ -64,6 +64,7 @@ func resourcePostLinkCreate(d *schema.ResourceData, m interface{}) error {
 	params := generateParams(d, "link", append(fieldsAllPosts, fieldsLinkPosts...))
 	res, err := tumblr.CreatePost(client, d.Get("blog").(string), params)
 	if err != nil {
+		d.SetId("")
 		return err
 	}
 
@@ -81,7 +82,7 @@ func resourcePostLinkRead(d *schema.ResourceData, m interface{}) error {
 	res, err := tumblr.GetPosts(client, d.Get("blog").(string), params)
 	if err != nil {
 		d.SetId("")
-		return nil
+		return err
 	}
 
 	for _, key := range append(fieldsAllPosts, fieldsLinkPosts...) {
@@ -100,6 +101,7 @@ func resourcePostLinkUpdate(d *schema.ResourceData, m interface{}) error {
 	params := generateParams(d, "link", append(fieldsAllPosts, fieldsLinkPosts...))
 	err := tumblr.EditPost(client, d.Get("blog").(string), stringToUint(d.Id()), params)
 	if err != nil {
+		d.SetId("")
 		return err
 	}
 
@@ -114,5 +116,5 @@ func resourcePostLinkDelete(d *schema.ResourceData, m interface{}) error {
 		return err
 	}
 
-	return resourcePostLinkRead(d, m)
+	return nil
 }
