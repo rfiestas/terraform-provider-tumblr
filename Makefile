@@ -18,6 +18,16 @@ build:
 
 test:
 	go test -v ./tumblr/
+testacc:
+	TF_ACC=1 go test -v ./tumblr/
+
+cover:
+	@go tool cover 2>/dev/null; if [ $$? -eq 3 ]; then \
+		go get -u golang.org/x/tools/cmd/cover; \
+	fi
+	TF_ACC=1 go test -v ./tumblr/ -coverprofile=coverage.out
+	go tool cover -html=coverage.out
+	rm coverage.out
 
 deploy: release
 ifeq ($(OS),Windows_NT)
