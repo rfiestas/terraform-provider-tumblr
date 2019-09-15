@@ -44,6 +44,7 @@ func resourcePostQuoteCreate(d *schema.ResourceData, m interface{}) error {
 	params := generateParams(d, "quote", append(fieldsAllPosts, fieldsQuotePosts...))
 	res, err := tumblr.CreatePost(client, d.Get("blog").(string), params)
 	if err != nil {
+		d.SetId("")
 		return err
 	}
 
@@ -61,7 +62,7 @@ func resourcePostQuoteRead(d *schema.ResourceData, m interface{}) error {
 	res, err := tumblr.GetPosts(client, d.Get("blog").(string), params)
 	if err != nil {
 		d.SetId("")
-		return nil
+		return err
 	}
 
 	for _, key := range append(fieldsAllPosts, fieldsQuotePosts...) {
@@ -80,6 +81,7 @@ func resourcePostQuoteUpdate(d *schema.ResourceData, m interface{}) error {
 	params := generateParams(d, "quote", append(fieldsAllPosts, fieldsQuotePosts...))
 	err := tumblr.EditPost(client, d.Get("blog").(string), stringToUint(d.Id()), params)
 	if err != nil {
+		d.SetId("")
 		return err
 	}
 
@@ -94,5 +96,5 @@ func resourcePostQuoteDelete(d *schema.ResourceData, m interface{}) error {
 		return err
 	}
 
-	return resourcePostQuoteRead(d, m)
+	return nil
 }
