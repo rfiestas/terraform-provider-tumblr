@@ -9,7 +9,7 @@ import (
 	"github.com/tumblr/tumblrclient.go"
 )
 
-var fieldsVideoPosts = []string{"caption", "embed", "data"}
+var fieldsVideoPosts = []string{"caption", "embed"}
 
 func resourcePostVideo() *schema.Resource {
 	return &schema.Resource{
@@ -41,10 +41,7 @@ func resourcePostVideo() *schema.Resource {
 				Optional:      true,
 				Description:   descriptions["data_video"],
 				ConflictsWith: []string{"embed"},
-				StateFunc: func(val interface{}) string {
-					return stringToMd5(val.(string))
-				},
-				Removed: "Pending to implement, default is external_url",
+				Removed:       "Pending to implement, default is external_url",
 			},
 		},
 	}
@@ -63,6 +60,7 @@ func resourcePostVideoCreate(d *schema.ResourceData, m interface{}) error {
 	params := generateParams(d, "video", append(fieldsAllPosts, fieldsVideoPosts...))
 	res, err := tumblr.CreatePost(client, d.Get("blog").(string), params)
 	if err != nil {
+		d.SetId("")
 		return err
 	}
 
@@ -80,7 +78,7 @@ func resourcePostVideoRead(d *schema.ResourceData, m interface{}) error {
 	res, err := tumblr.GetPosts(client, d.Get("blog").(string), params)
 	if err != nil {
 		d.SetId("")
-		return nil
+		return err
 	}
 
 	for _, key := range append(fieldsAllPosts, fieldsVideoPosts...) {
@@ -99,6 +97,7 @@ func resourcePostVideoUpdate(d *schema.ResourceData, m interface{}) error {
 	params := generateParams(d, "video", append(fieldsAllPosts, fieldsVideoPosts...))
 	err := tumblr.EditPost(client, d.Get("blog").(string), stringToUint(d.Id()), params)
 	if err != nil {
+		d.SetId("")
 		return err
 	}
 
@@ -113,5 +112,5 @@ func resourcePostVideoDelete(d *schema.ResourceData, m interface{}) error {
 		return err
 	}
 
-	return resourcePostVideoRead(d, m)
+	return nil
 }
