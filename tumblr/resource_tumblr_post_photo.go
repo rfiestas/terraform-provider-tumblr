@@ -9,7 +9,7 @@ import (
 	"github.com/tumblr/tumblrclient.go"
 )
 
-var fieldsPhotoPosts = []string{"caption", "link", "source"}
+var fieldsPhotoPosts = []string{"caption", "link", "source", "data64"}
 
 func resourcePostPhoto() *schema.Resource {
 	return &schema.Resource{
