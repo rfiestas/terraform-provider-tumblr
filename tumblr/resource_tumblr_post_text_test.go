@@ -14,6 +14,7 @@ import (
 )
 
 var error404NotFound = regexp.MustCompile("404 Not Found")
+var mustBeAssigned = regexp.MustCompile("must be assigned")
 
 func TestAccPostText_Basic(t *testing.T) {
 	resource.Test(t, resource.TestCase{

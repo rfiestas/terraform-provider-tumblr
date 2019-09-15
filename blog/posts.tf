@@ -74,3 +74,4 @@ resource "tumblr_post_photo" "apollo12" {
     tags        = "terraform,terraform provider,tumblr,photo,nasa,apollo"
     
 }
+
