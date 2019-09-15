@@ -41,10 +41,7 @@ func resourcePostAudio() *schema.Resource {
 				Optional:      true,
 				Description:   descriptions["data_audio"],
 				ConflictsWith: []string{"external_url"},
-				StateFunc: func(val interface{}) string {
-					return stringToMd5(val.(string))
-				},
-				Removed: "Pending to implement, default is external_url",
+				Removed:       "Pending to implement, default is external_url",
 			},
 		},
 	}
@@ -57,12 +54,14 @@ func resourcePostAudioCreate(d *schema.ResourceData, m interface{}) error {
 	_, dataOk := d.GetOk("data")
 
 	if !externalURLOk && !dataOk {
+		d.SetId("")
 		return fmt.Errorf("One of external_url or data must be assigned")
 	}
 
 	params := generateParams(d, "audio", append(fieldsAllPosts, fieldsAudioPosts...))
 	res, err := tumblr.CreatePost(client, d.Get("blog").(string), params)
 	if err != nil {
+		d.SetId("")
 		return err
 	}
 
@@ -80,7 +79,7 @@ func resourcePostAudioRead(d *schema.ResourceData, m interface{}) error {
 	res, err := tumblr.GetPosts(client, d.Get("blog").(string), params)
 	if err != nil {
 		d.SetId("")
-		return nil
+		return err
 	}
 
 	for _, key := range append(fieldsAllPosts, fieldsAudioPosts...) {
@@ -99,6 +98,7 @@ func resourcePostAudioUpdate(d *schema.ResourceData, m interface{}) error {
 	params := generateParams(d, "audio", append(fieldsAllPosts, fieldsAudioPosts...))
 	err := tumblr.EditPost(client, d.Get("blog").(string), stringToUint(d.Id()), params)
 	if err != nil {
+		d.SetId("")
 		return err
 	}
 
@@ -113,5 +113,5 @@ func resourcePostAudioDelete(d *schema.ResourceData, m interface{}) error {
 		return err
 	}
 
-	return resourcePostAudioRead(d, m)
+	return nil
 }
