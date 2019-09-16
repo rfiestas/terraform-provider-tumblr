@@ -29,6 +29,7 @@ func tagsPostSchema() *schema.Schema {
 	}
 }
 
+/*
 func tweetPostSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:        schema.TypeString,
@@ -36,7 +37,7 @@ func tweetPostSchema() *schema.Schema {
 		Description: descriptions["tweet"],
 		Removed:     "Pending to implement, default is none",
 	}
-}
+}*/
 
 func datePostSchema() *schema.Schema {
 	return &schema.Schema{
@@ -64,6 +65,7 @@ func slugPostSchema() *schema.Schema {
 	}
 }
 
+/*
 func nativeInlineImagesPostSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:        schema.TypeBool,
@@ -72,3 +74,4 @@ func nativeInlineImagesPostSchema() *schema.Schema {
 		Removed:     "Pending to implement, default is false",
 	}
 }
+*/
