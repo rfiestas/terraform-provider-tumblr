@@ -20,16 +20,19 @@ func Provider() terraform.ResourceProvider {
 				Type:        schema.TypeString,
 				Required:    true,
 				DefaultFunc: schema.EnvDefaultFunc("CONSUMER_SECRET", ""),
+				Description: descriptions["consumer_secret"],
 			},
 			"user_token": {
 				Type:        schema.TypeString,
 				Required:    true,
 				DefaultFunc: schema.EnvDefaultFunc("USER_TOKEN", ""),
+				Description: descriptions["user_token"],
 			},
 			"user_token_secret": {
 				Type:        schema.TypeString,
 				Required:    true,
 				DefaultFunc: schema.EnvDefaultFunc("USER_TOKEN_SECRET", ""),
+				Description: descriptions["user_token_secret"],
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
