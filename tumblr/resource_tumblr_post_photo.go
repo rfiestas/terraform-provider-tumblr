@@ -25,30 +25,30 @@ func resourcePostPhoto() *schema.Resource {
 			"date":   datePostSchema(),
 			"format": formatPostSchema(),
 			"slug":   slugPostSchema(),
-			"caption": &schema.Schema{
+			"caption": {
 				Type:        schema.TypeString,
 				Optional:    true,
 				Description: descriptions["caption"],
 			},
-			"link": &schema.Schema{
+			"link": {
 				Type:        schema.TypeString,
 				Optional:    true,
 				Description: descriptions["link"],
 			},
-			"source": &schema.Schema{
+			"source": {
 				Type:          schema.TypeString,
 				Optional:      true,
 				Description:   descriptions["source_photo"],
 				ConflictsWith: []string{"data", "data64"},
 			},
-			"data": &schema.Schema{
+			"data": {
 				Type:          schema.TypeString,
 				Optional:      true,
 				Description:   descriptions["data_photo"],
 				Removed:       "Pending to implement, default is data64",
 				ConflictsWith: []string{"source", "data64"},
 			},
-			"data64": &schema.Schema{
+			"data64": {
 				Type:          schema.TypeString,
 				Optional:      true,
 				Description:   descriptions["data64"],
