@@ -1,11 +1,7 @@
 package tumblr
 
 import (
-	"net/url"
-	"reflect"
 	"testing"
-
-	"github.com/hashicorp/terraform/helper/schema"
 )
 
 func Test_stringToUint(t *testing.T) {
@@ -113,28 +109,6 @@ func Test_toCamelCase(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := toCamelCase(tt.args.str); got != tt.want {
 				t.Errorf("toCamelCase() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func Test_generateParams(t *testing.T) {
-	type args struct {
-		d        *schema.ResourceData
-		postType string
-		fields   []string
-	}
-	tests := []struct {
-		name string
-		args args
-		want url.Values
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := generateParams(tt.args.d, tt.args.postType, tt.args.fields); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("generateParams() = %v, want %v", got, tt.want)
 			}
 		})
 	}
