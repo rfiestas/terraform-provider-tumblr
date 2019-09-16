@@ -1,4 +1,5 @@
 version=0.0.1
+PKG_NAME=tumblr
 
 default: build deploy
 
@@ -15,6 +16,13 @@ build:
 	GOARCH=amd64 GOOS=windows go build -o terraform-provider-tumblr_windows_amd64.exe
 	GOARCH=amd64 GOOS=linux go build -o terraform-provider-tumblr_linux_amd64
 	GOARCH=amd64 GOOS=darwin go build -o terraform-provider-tumblr_darwin_amd64
+
+fmt:
+	@echo "==> Fixing source code with gofmt..."
+	gofmt -s -w ./$(PKG_NAME)
+
+fmtcheck:
+	@sh -c "'$(CURDIR)/scripts/gofmtcheck.sh'"
 
 test:
 	go test -v ./tumblr/
