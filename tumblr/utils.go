@@ -21,8 +21,8 @@ func stringToUint(str string) uint64 {
 	return u
 }
 
-func uintToString(str uint64) string {
-	u := strconv.FormatUint(str, 10)
+func uintToString(integer uint64) string {
+	u := strconv.FormatUint(integer, 10)
 	return u
 }
 
@@ -36,6 +36,13 @@ func stringToMd5(str string) string {
 	return returnMD5String
 }
 
+// toCamelCase foo_var_foo_var to FooVarFooVar
+func toCamelCase(str string) string {
+	return camelCase.ReplaceAllStringFunc(str, func(s string) string {
+		return strings.ToUpper(strings.Replace(s, "_", "", -1))
+	})
+}
+
 func generateParams(d *schema.ResourceData, postType string, fields []string) url.Values {
 	params := url.Values{}
 	params.Add("type", postType)
@@ -45,11 +52,4 @@ func generateParams(d *schema.ResourceData, postType string, fields []string) ur
 	}
 
 	return params
-}
-
-// toCamelCase foo_var_foo_var to FooVarFooVar
-func toCamelCase(str string) string {
-	return camelCase.ReplaceAllStringFunc(str, func(s string) string {
-		return strings.ToUpper(strings.Replace(s, "_", "", -1))
-	})
 }
