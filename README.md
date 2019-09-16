@@ -1,4 +1,5 @@
-# terraform-provider-tumblr
+# terraform-provider-tumblr 
+[![Build Status](https://travis-ci.com/rfiestas/terraform-provider-tumblr.svg?branch=master)](https://travis-ci.com/rfiestas/terraform-provider-tumblr)
 
 A [Terraform](https://www.terraform.io) Custom Provider for [tumblr](https://www.tumblr.com).
 
