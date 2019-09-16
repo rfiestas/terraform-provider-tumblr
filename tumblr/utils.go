@@ -12,8 +12,6 @@ import (
 )
 
 var camelCase = regexp.MustCompile("(^[A-Za-z])|_([A-Za-z])")
-var snakeCaseMatchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
-var snakeCaseMatchAllCap = regexp.MustCompile("([a-z0-9])([A-Z])")
 
 func stringToUint(str string) uint64 {
 	u, err := strconv.ParseUint(str, 10, 64)
@@ -54,11 +52,4 @@ func toCamelCase(str string) string {
 	return camelCase.ReplaceAllStringFunc(str, func(s string) string {
 		return strings.ToUpper(strings.Replace(s, "_", "", -1))
 	})
-}
-
-// toSnakeCase FooVarFooVar to foo_var_foo_var
-func toSnakeCase(str string) string {
-	snake := snakeCaseMatchFirstCap.ReplaceAllString(str, "${1}_${2}")
-	snake = snakeCaseMatchAllCap.ReplaceAllString(snake, "${1}_${2}")
-	return strings.ToLower(snake)
 }
