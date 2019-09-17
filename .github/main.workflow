@@ -1,10 +1,17 @@
 workflow "Build and Publish" {
+  resolves = ["Lint", "Coverage"]
   on = "push"
-  resolves = ["Coverage"]
+}
+
+action "Lint" {
+  uses = "actions/action-builder/shell@master"
+  runs = "make"
+  args = "lint"
 }
 
 action "Coverage" {
   uses = "actions/action-builder/shell@master"
   runs = "make"
-  args = "cover"
+  args = "coveralls"
+  secrets = ["COVERALLS_TOKEN"]
 }
