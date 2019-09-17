@@ -1,5 +1,6 @@
 # terraform-provider-tumblr 
 [![Build Status](https://travis-ci.com/rfiestas/terraform-provider-tumblr.svg?branch=master)](https://travis-ci.com/rfiestas/terraform-provider-tumblr)
+[![Coverage Status](https://coveralls.io/repos/github/rfiestas/terraform-provider-tumblr/badge.svg?branch=master)](https://coveralls.io/github/rfiestas/terraform-provider-tumblr?branch=master)
 
 A [Terraform](https://www.terraform.io) Custom Provider for [tumblr](https://www.tumblr.com).
 
