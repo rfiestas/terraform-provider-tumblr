@@ -6,6 +6,8 @@ default: build deploy
 tools:
         GO111MODULE=off go get -u golang.org/x/lint/golint	
 	GO111MODULE=off go get -u golang.org/x/tools/cmd/cover
+	GO111MODULE=off go get -u golang.org/x/tools/cmd/cover
+	GO111MODULE=off go get -u github.com/mattn/goveralls	
 
 build: fmtcheck
 	GOARCH=amd64 GOOS=windows go build -o terraform-provider-$(PKG_NAME)_windows_amd64.exe
@@ -27,6 +29,11 @@ testacc: fmtcheck
 	TF_ACC=1 go test -v ./$(PKG_NAME)/
 
 cover: fmtcheck
+	TF_ACC=1 go test -v ./$(PKG_NAME)/ -coverprofile=coverage.out
+	go tool cover -html=coverage.out
+	rm coverage.out
+
+coveralls: fmtcheck
 	TF_ACC=1 go test -v ./$(PKG_NAME)/ -coverprofile=coverage.out
 	go tool cover -html=coverage.out
 	rm coverage.out
@@ -54,4 +61,4 @@ release: test
 	zip releases/terraform-provider-$(PKG_NAME)_linux_amd64_v${VERSION}.zip bin/linux_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}
 	zip releases/terraform-provider-$(PKG_NAME)_darwin_amd64_v${VERSION}.zip bin/darwin_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}
 
-.PHONY: tools build lint test testacc cover fmtcheck fmt deploy release build deps gets
+.PHONY: tools build lint test testacc cover coveralls fmtcheck fmt deploy release build deps gets
