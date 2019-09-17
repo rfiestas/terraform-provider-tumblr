@@ -19,6 +19,8 @@ fmt:
 fmtcheck: tools
 	@sh -c "'$(CURDIR)/scripts/gofmtcheck.sh'"
 
+lint: fmtcheck
+	golint -set_exit_status ./$(PKG_NAME)/
 test: fmtcheck
 	go test -v ./$(PKG_NAME)/
 testacc: fmtcheck
@@ -52,4 +54,4 @@ release: test
 	zip releases/terraform-provider-$(PKG_NAME)_linux_amd64_v${VERSION}.zip bin/linux_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}
 	zip releases/terraform-provider-$(PKG_NAME)_darwin_amd64_v${VERSION}.zip bin/darwin_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}
 
-.PHONY: tools build test testacc cover fmtcheck fmt deploy release build deps gets
+.PHONY: tools build lint test testacc cover fmtcheck fmt deploy release build deps gets
