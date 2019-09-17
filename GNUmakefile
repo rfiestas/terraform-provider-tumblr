@@ -4,9 +4,8 @@ PKG_NAME=tumblr
 default: build deploy
 
 tools:
-        GO111MODULE=off go get -u golang.org/x/lint/golint	
 	GO111MODULE=off go get -u golang.org/x/tools/cmd/cover
-	GO111MODULE=off go get -u golang.org/x/tools/cmd/cover
+	GO111MODULE=off go get -u golang.org/x/lint/golint	
 	GO111MODULE=off go get -u github.com/mattn/goveralls	
 
 build: fmtcheck
@@ -34,8 +33,8 @@ cover: fmtcheck
 	rm coverage.out
 
 coveralls: fmtcheck
-	TF_ACC=1 go test -v ./$(PKG_NAME)/ -coverprofile=coverage.out
-	go tool cover -html=coverage.out
+	TF_ACC=1 go test -v ./$(PKG_NAME)/ -covermode=count -coverprofile=coverage.out
+	${GOPATH}/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken ${COVERALLS_TOKEN}
 	rm coverage.out
 
 deploy: release
