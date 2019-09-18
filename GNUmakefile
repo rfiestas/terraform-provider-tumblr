@@ -21,7 +21,7 @@ fmtcheck: tools
 	@sh -c "'$(CURDIR)/scripts/gofmtcheck.sh'"
 
 lint: fmtcheck
-	/usr/local/bin/golint -set_exit_status ./$(PKG_NAME)/
+	${HOME}/go/bin/golint -set_exit_status ./$(PKG_NAME)/
 test: fmtcheck
 	go test -v ./$(PKG_NAME)/
 testacc: fmtcheck

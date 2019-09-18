@@ -30,4 +30,6 @@ jobs:
 
       - name: Run Unit tests.
         run: make coveralls
+        env:
+          COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
     
