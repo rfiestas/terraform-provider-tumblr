@@ -23,7 +23,7 @@ func TestAccPostChat_Basic(t *testing.T) {
 			{
 				Config: testPostChatBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_chat.first_chat", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_chat.first_chat", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_chat.first_chat", "title", "title_first_chat"),
 				),
 			},
@@ -39,14 +39,14 @@ func TestAccPostChat_Update(t *testing.T) {
 			{
 				Config: testPostChatBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_chat.first_chat", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_chat.first_chat", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_chat.first_chat", "title", "title_first_chat"),
 				),
 			},
 			{
 				Config: testPostChatUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_chat.first_chat", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_chat.first_chat", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_chat.first_chat", "title", "title_first_chat_update"),
 				),
 			},
@@ -77,7 +77,7 @@ func TestAccPostChat_WrongUpdate(t *testing.T) {
 			{
 				Config: testPostChatBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_chat.first_chat", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_chat.first_chat", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_chat.first_chat", "title", "title_first_chat"),
 				),
 			},
@@ -107,29 +107,29 @@ func testAccPostChatDestroy(s *terraform.State) error {
 	return nil
 }
 
-const testPostChatBasic = `
+var testPostChatBasic = fmt.Sprintf(`
 resource "tumblr_post_chat" "first_chat" {
-  blog  = "terraform-provider-for"
+  blog  = "%s"
   title = "title_first_chat"
   conversation  = "foo: ping\nvar: pong"
   state = "published"
   tags  = "terraform,terraform provider,tumblr,chat,test"
 }
-`
+`, TestBlog)
 
-const testPostChatUpdate = `
+var testPostChatUpdate = fmt.Sprintf(`
 resource "tumblr_post_chat" "first_chat" {
-	blog  = "terraform-provider-for"
+	blog  = "%s"
 	title = "title_first_chat_update"
 	conversation  = "foo: ping\nvar: pong"
 	state = "published"
 	tags  = "terraform,terraform provider,tumblr,chat,test"
 }
-`
+`, TestBlog)
 
 const testPostChatFailure = `
 resource "tumblr_post_chat" "first_chat" {
-	blog  = "terraform-provider-tumblr"
+	blog  = "NoExistInTumblr"
 	title = "title_first_chat_failure"
 	conversation  = "foo: ping\nvar: pong"
 	state = "published"

@@ -21,7 +21,7 @@ func TestAccPostPhoto_Basic(t *testing.T) {
 			{
 				Config: testPostPhotoBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_photo.first_photo", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_photo.first_photo", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_photo.first_photo", "caption", "caption_first_photo"),
 				),
 			},
@@ -37,14 +37,14 @@ func TestAccPostPhoto_Update(t *testing.T) {
 			{
 				Config: testPostPhotoBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_photo.first_photo", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_photo.first_photo", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_photo.first_photo", "caption", "caption_first_photo"),
 				),
 			},
 			{
 				Config: testPostPhotoUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_photo.first_photo", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_photo.first_photo", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_photo.first_photo", "caption", "caption_first_photo_update"),
 				),
 			},
@@ -75,7 +75,7 @@ func TestAccPostPhoto_WrongUpdate(t *testing.T) {
 			{
 				Config: testPostPhotoBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_photo.first_photo", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_photo.first_photo", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_photo.first_photo", "caption", "caption_first_photo"),
 				),
 			},
@@ -119,26 +119,26 @@ func testAccPostPhotoDestroy(s *terraform.State) error {
 	return nil
 }
 
-const testPostPhotoBasic = `
+var testPostPhotoBasic = fmt.Sprintf(`
 resource "tumblr_post_photo" "first_photo" {
-	blog    = "terraform-provider-for"
+	blog    = "%s"
 	caption = "caption_first_photo"
 	data64  = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
 	state   = "published"
 	tags    = "terraform,terraform provider,tumblr,photo,test"
 }
-`
+`, TestBlog)
 
-const testPostPhotoUpdate = `
+var testPostPhotoUpdate = fmt.Sprintf(`
 resource "tumblr_post_photo" "first_photo" {
-	blog    = "terraform-provider-for"
+	blog    = "%s"
 	caption = "caption_first_photo_update"
 }
-`
+`, TestBlog)
 
 const testPostPhotoFailure = `
 resource "tumblr_post_photo" "first_photo" {
-	blog    = "terraform-provider-tumblr"
+	blog    = "NoExistInTumblr"
 	caption = "caption_first_photo_failure"
 	data64  = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
 	state   = "published"
@@ -146,11 +146,11 @@ resource "tumblr_post_photo" "first_photo" {
 }
 `
 
-const testPostPhotoMissingParameters = `
+var testPostPhotoMissingParameters = fmt.Sprintf(`
 resource "tumblr_post_photo" "first_photo" {
-	blog    = "terraform-provider-tumblr"
+	blog    = "%s"
 	caption = "caption_first_photo_wrong_parameters"
 	state   = "published"
 	tags    = "terraform,terraform provider,tumblr,photo,test"
 }
-`
+`, TestBlog)

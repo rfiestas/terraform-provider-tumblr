@@ -21,7 +21,7 @@ func TestAccPostLink_Basic(t *testing.T) {
 			{
 				Config: testPostLinkBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_link.first_link", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_link.first_link", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_link.first_link", "title", "title_first_link"),
 				),
 			},
@@ -37,14 +37,14 @@ func TestAccPostLink_Update(t *testing.T) {
 			{
 				Config: testPostLinkBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_link.first_link", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_link.first_link", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_link.first_link", "title", "title_first_link"),
 				),
 			},
 			{
 				Config: testPostLinkUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_link.first_link", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_link.first_link", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_link.first_link", "title", "title_first_link_update"),
 				),
 			},
@@ -75,7 +75,7 @@ func TestAccPostLink_WrongUpdate(t *testing.T) {
 			{
 				Config: testPostLinkBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_link.first_link", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_link.first_link", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_link.first_link", "title", "title_first_link"),
 				),
 			},
@@ -105,9 +105,9 @@ func testAccPostLinkDestroy(s *terraform.State) error {
 	return nil
 }
 
-const testPostLinkBasic = `
+var testPostLinkBasic = fmt.Sprintf(`
 resource "tumblr_post_link" "first_link" {
-    blog        = "terraform-provider-for"
+    blog        = "%s"
     title       = "title_first_link"
     description = "description_test"
     url         = "https://terraform-provider-for.tumblr.com/"
@@ -115,11 +115,11 @@ resource "tumblr_post_link" "first_link" {
     state       = "published"
     tags        = "terraform,terraform provider,tumblr,link,test"
 }
-`
+`, TestBlog)
 
-const testPostLinkUpdate = `
+var testPostLinkUpdate = fmt.Sprintf(`
 resource "tumblr_post_link" "first_link" {
-	blog        = "terraform-provider-for"
+	blog        = "%s"
 	title       = "title_first_link_update"
 	description = "description_test"
 	url         = "https://terraform-provider-for.tumblr.com/"
@@ -127,11 +127,11 @@ resource "tumblr_post_link" "first_link" {
 	state       = "published"
 	tags        = "terraform,terraform provider,tumblr,link,test"
 }
-`
+`, TestBlog)
 
 const testPostLinkFailure = `
 resource "tumblr_post_link" "first_link" {
-	blog        = "terraform-provider-tumblr"
+	blog        = "NoExistInTumblr"
 	title       = "title_first_link_failure"
 	description = "description_test"
 	url         = "https://terraform-provider-for.tumblr.com/"

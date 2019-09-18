@@ -21,7 +21,7 @@ func TestAccPostQuote_Basic(t *testing.T) {
 			{
 				Config: testPostQuoteBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_quote.first_quote", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_quote.first_quote", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_quote.first_quote", "quote", "title_first_quote"),
 				),
 			},
@@ -37,14 +37,14 @@ func TestAccPostQuote_Update(t *testing.T) {
 			{
 				Config: testPostQuoteBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_quote.first_quote", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_quote.first_quote", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_quote.first_quote", "quote", "title_first_quote"),
 				),
 			},
 			{
 				Config: testPostQuoteUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_quote.first_quote", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_quote.first_quote", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_quote.first_quote", "quote", "title_first_quote_update"),
 				),
 			},
@@ -75,7 +75,7 @@ func TestAccPostQuote_WrongUpdate(t *testing.T) {
 			{
 				Config: testPostQuoteBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_quote.first_quote", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_quote.first_quote", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_quote.first_quote", "quote", "title_first_quote"),
 				),
 			},
@@ -105,27 +105,27 @@ func testAccPostQuoteDestroy(s *terraform.State) error {
 	return nil
 }
 
-const testPostQuoteBasic = `
+var testPostQuoteBasic = fmt.Sprintf(`
 resource "tumblr_post_quote" "first_quote" {
-  blog  = "terraform-provider-for"
+  blog  = "%s"
   quote = "title_first_quote"
   state = "published"
   tags  = "terraform,terraform provider,tumblr,quote,test"
 }
-`
+`, TestBlog)
 
-const testPostQuoteUpdate = `
+var testPostQuoteUpdate = fmt.Sprintf(`
 resource "tumblr_post_quote" "first_quote" {
-	blog  = "terraform-provider-for"
+	blog  = "%s"
 	quote = "title_first_quote_update"
 	state = "published"
 	tags  = "terraform,terraform provider,tumblr,quote,test"
 }
-`
+`, TestBlog)
 
 const testPostQuoteFailure = `
 resource "tumblr_post_quote" "first_quote" {
-	blog  = "terraform-provider-tumblr"
+	blog  = "NoExistInTumblr"
 	quote = "title_first_quote_failure"
 	state = "published"
 	tags  = "terraform,terraform provider,tumblr,quote,test"

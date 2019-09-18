@@ -21,7 +21,7 @@ func TestAccPostAudio_Basic(t *testing.T) {
 			{
 				Config: testPostAudioBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_audio.first_audio", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_audio.first_audio", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_audio.first_audio", "caption", "caption_first_audio"),
 				),
 			},
@@ -37,14 +37,14 @@ func TestAccPostAudio_Update(t *testing.T) {
 			{
 				Config: testPostAudioBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_audio.first_audio", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_audio.first_audio", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_audio.first_audio", "caption", "caption_first_audio"),
 				),
 			},
 			{
 				Config: testPostAudioUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_audio.first_audio", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_audio.first_audio", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_audio.first_audio", "caption", "caption_first_audio_update"),
 				),
 			},
@@ -75,7 +75,7 @@ func TestAccPostAudio_WrongUpdate(t *testing.T) {
 			{
 				Config: testPostAudioBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_audio.first_audio", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_audio.first_audio", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_audio.first_audio", "caption", "caption_first_audio"),
 				),
 			},
@@ -119,26 +119,26 @@ func testAccPostAudioDestroy(s *terraform.State) error {
 	return nil
 }
 
-const testPostAudioBasic = `
+var testPostAudioBasic = fmt.Sprintf(`
 resource "tumblr_post_audio" "first_audio" {
-	blog         = "terraform-provider-for"
+	blog         = "%s"
 	caption      = "caption_first_audio"
 	external_url = "https://soundcloud.com/club-bizarre/free-download-kraftwerk-we-are"
 	state        = "published"
 	tags         = "terraform,terraform provider,tumblr,audio,test"
 }
-`
+`, TestBlog)
 
-const testPostAudioUpdate = `
+var testPostAudioUpdate = fmt.Sprintf(`
 resource "tumblr_post_audio" "first_audio" {
-	blog    = "terraform-provider-for"
+	blog    = "%s"
 	caption = "caption_first_audio_update"
 }
-`
+`, TestBlog)
 
 const testPostAudioFailure = `
 resource "tumblr_post_audio" "first_audio" {
-	blog         = "terraform-provider-tumblr"
+	blog         = "NoExistInTumblr"
 	caption      = "caption_first_audio_failure"
 	external_url = "https://soundcloud.com/club-bizarre/free-download-kraftwerk-we-are"
 	state        = "published"
@@ -148,7 +148,7 @@ resource "tumblr_post_audio" "first_audio" {
 
 const testPostAudioMissingParameters = `
 resource "tumblr_post_audio" "first_audio" {
-	blog    = "terraform-provider-tumblr"
+	blog    = "NoExistInTumblr"
 	caption = "caption_first_audio_wrong_parameters"
 	state   = "published"
 	tags    = "terraform,terraform provider,tumblr,audio,test"

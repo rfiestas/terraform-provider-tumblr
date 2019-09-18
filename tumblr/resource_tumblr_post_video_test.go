@@ -21,7 +21,7 @@ func TestAccPostVideo_Basic(t *testing.T) {
 			{
 				Config: testPostVideoBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_video.first_video", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_video.first_video", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_video.first_video", "caption", "caption_first_video"),
 				),
 			},
@@ -37,14 +37,14 @@ func TestAccPostVideo_Update(t *testing.T) {
 			{
 				Config: testPostVideoBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_video.first_video", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_video.first_video", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_video.first_video", "caption", "caption_first_video"),
 				),
 			},
 			{
 				Config: testPostVideoUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_video.first_video", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_video.first_video", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_video.first_video", "caption", "caption_first_video_update"),
 				),
 			},
@@ -75,7 +75,7 @@ func TestAccPostVideo_WrongUpdate(t *testing.T) {
 			{
 				Config: testPostVideoBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("tumblr_post_video.first_video", "blog", "terraform-provider-for"),
+					resource.TestCheckResourceAttr("tumblr_post_video.first_video", "blog", TestBlog),
 					resource.TestCheckResourceAttr("tumblr_post_video.first_video", "caption", "caption_first_video"),
 				),
 			},
@@ -119,26 +119,26 @@ func testAccPostVideoDestroy(s *terraform.State) error {
 	return nil
 }
 
-const testPostVideoBasic = `
+var testPostVideoBasic = fmt.Sprintf(`
 resource "tumblr_post_video" "first_video" {
-	blog    = "terraform-provider-for"
+	blog    = "%s"
 	caption = "caption_first_video"
 	embed   = "https://www.youtube.com/watch?v=TMayVLSQ6yM"
 	state   = "published"
 	tags    = "terraform,terraform provider,tumblr,video,test"
 }
-`
+`, TestBlog)
 
-const testPostVideoUpdate = `
+var testPostVideoUpdate = fmt.Sprintf(`
 resource "tumblr_post_video" "first_video" {
-	blog    = "terraform-provider-for"
+	blog    = "%s"
 	caption = "caption_first_video_update"
 }
-`
+`, TestBlog)
 
 const testPostVideoFailure = `
 resource "tumblr_post_video" "first_video" {
-	blog    = "terraform-provider-tumblr"
+	blog    = "NoExistInTumblr"
 	caption = "caption_first_video_failure"
 	embed   = "https://www.youtube.com/watch?v=TMayVLSQ6yM"
 	state   = "published"
@@ -146,11 +146,11 @@ resource "tumblr_post_video" "first_video" {
 }
 `
 
-const testPostVideoMissingParameters = `
+var testPostVideoMissingParameters = fmt.Sprintf(`
 resource "tumblr_post_video" "first_video" {
-	blog    = "terraform-provider-tumblr"
+	blog    = "%s"
 	caption = "caption_first_video_wrong_parameters"
 	state   = "published"
 	tags    = "terraform,terraform provider,tumblr,video,test"
 }
-`
+`, TestBlog)
