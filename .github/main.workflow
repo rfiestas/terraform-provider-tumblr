@@ -1,12 +1,9 @@
 workflow "Build and Publish" {
-  resolves = ["Lint", "Coverage"]
+  resolves = [
+    "Coverage",
+    "Lint",
+  ]
   on = "push"
-}
-
-action "Lint" {
-  uses = "actions/action-builder/shell@master"
-  runs = "make"
-  args = "lint"
 }
 
 action "Coverage" {
@@ -14,4 +11,9 @@ action "Coverage" {
   runs = "make"
   args = "coveralls"
   secrets = ["COVERALLS_TOKEN"]
+}
+
+action "Lint" {
+  uses = "./.github/actions/terraform-provider-tumblr-action"
+  runs = "lint"
 }
