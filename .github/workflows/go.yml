@@ -32,4 +32,8 @@ jobs:
         run: make coveralls
         env:
           COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+          USER_TOKEN: ${{ secrets.USER_TOKEN }}
+          USER_TOKEN_SECRET: ${{ secrets.USER_TOKEN_SECRET }}
     
