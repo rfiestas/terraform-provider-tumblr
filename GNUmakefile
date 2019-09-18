@@ -34,7 +34,7 @@ cover: fmtcheck
 
 coveralls: fmtcheck
 	TF_ACC=1 go test -v ./$(PKG_NAME)/ -covermode=count -coverprofile=coverage.out
-	${GOPATH}/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken ${COVERALLS_TOKEN}
+	${HOME}/go/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken ${COVERALLS_TOKEN}
 	rm coverage.out
 
 deploy: release
