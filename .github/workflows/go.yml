@@ -1,4 +1,4 @@
-name: test
+name: Test
 on: [push, pull_request]
 jobs:
   lint:
@@ -29,5 +29,6 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Run Unit tests.
-        run: make coverage
+        run: make coveralls
+        secrets: COVERALLS_TOKEN
     
