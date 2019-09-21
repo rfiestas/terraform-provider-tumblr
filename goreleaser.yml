@@ -1,0 +1,14 @@
+builds:
+  - binary: terraform-provider-tumblr_v{{.Version}}
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+      - windows
+    goarch:
+      - amd64
+
+archives:
+  - id: terraform-provider-tumblr
+    format: zip
