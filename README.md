@@ -68,7 +68,22 @@ Bug reports, suggestions, code additions/changes etc. are very welcome! When mak
 
 ### Running Acceptance Tests
 
-PENDING
+In order to test the provider, you can run `make test`.
+
+```sh
+$ make test
+```
+
+In order to run the full suite of Acceptance tests, run `make testacc`.
+
+*Note* Make sure `CONSUMER_KEY`, `CONSUMER_SECRET`, `USER_TOKEN` and  `USER_TOKEN_SECRET` variables are set.
+
+Acceptance tests create real resources, set your testing blog setting the variable `TestBlog` on `tumblr/schema_tumblr_post_test.go` file.
+
+```sh
+$ make testacc
+```
+
 
 ## License
 `terraform-provider-tumblr` is provided *"as-is"* under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0).
