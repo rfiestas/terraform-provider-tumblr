@@ -69,7 +69,7 @@ build: ## Build packages and dependencies
 	GOARCH=amd64 GOOS=darwin go build -o bin/darwin_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}
 
 .PHONY: deploy
-deploy: release ## Install builded packages
+deploy: build ## Install builded packages
 ifeq ($(OS),Windows_NT)
 	cp bin/terraform-provider-$(PKG_NAME)_windows_amd64.exe $(dir $(shell which terraform))
 else
