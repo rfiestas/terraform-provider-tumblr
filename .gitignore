@@ -11,3 +11,7 @@ crash.log
 
 # Env files
 .env
+
+# Bin / Releases
+bin
+releases
