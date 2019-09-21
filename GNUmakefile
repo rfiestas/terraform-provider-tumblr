@@ -57,8 +57,8 @@ coveralls: fmtcheck ## Launch acc tests, calculate coverage and upload to covera
 	${HOME}/go/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken ${COVERALLS_TOKEN}
 	rm coverage.out
 
-.PHONY: release
-release: ## Compile packages and dependencies
+.PHONY: build
+build: ## Build packages and dependencies
 	rm -fr bin
 	mkdir -p bin/windows_amd64
 	mkdir -p bin/linux_amd64
@@ -67,11 +67,6 @@ release: ## Compile packages and dependencies
 	GOARCH=amd64 GOOS=windows go build -o bin/windows_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}.exe
 	GOARCH=amd64 GOOS=linux go build -o bin/linux_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}
 	GOARCH=amd64 GOOS=darwin go build -o bin/darwin_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}
-
-	mkdir -p releases/
-	zip releases/terraform-provider-$(PKG_NAME)_windows_amd64_v${VERSION}.zip bin/windows_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}.exe
-	zip releases/terraform-provider-$(PKG_NAME)_linux_amd64_v${VERSION}.zip bin/linux_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}
-	zip releases/terraform-provider-$(PKG_NAME)_darwin_amd64_v${VERSION}.zip bin/darwin_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}
 
 .PHONY: deploy
 deploy: release ## Install builded packages
