@@ -60,7 +60,7 @@ func TestAccPostAudio_WrongCreate(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config:      testPostAudioFailure,
-				ExpectError: error404NotFound,
+				ExpectError: TestError404NotFound,
 			},
 		},
 	})
@@ -81,7 +81,7 @@ func TestAccPostAudio_WrongUpdate(t *testing.T) {
 			},
 			{
 				Config:      testPostAudioFailure,
-				ExpectError: error404NotFound,
+				ExpectError: TestError404NotFound,
 			},
 		},
 	})
@@ -95,7 +95,7 @@ func TestAccPostAudio_MissingParameters(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config:      testPostAudioMissingParameters,
-				ExpectError: mustBeAssigned,
+				ExpectError: TestMustBeAssigned,
 			},
 		},
 	})

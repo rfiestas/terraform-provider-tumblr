@@ -60,7 +60,7 @@ func TestAccPostQuote_WrongCreate(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config:      testPostQuoteFailure,
-				ExpectError: error404NotFound,
+				ExpectError: TestError404NotFound,
 			},
 		},
 	})
@@ -81,7 +81,7 @@ func TestAccPostQuote_WrongUpdate(t *testing.T) {
 			},
 			{
 				Config:      testPostQuoteFailure,
-				ExpectError: error404NotFound,
+				ExpectError: TestError404NotFound,
 			},
 		},
 	})

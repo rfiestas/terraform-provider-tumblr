@@ -60,7 +60,7 @@ func TestAccPostVideo_WrongCreate(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config:      testPostVideoFailure,
-				ExpectError: error404NotFound,
+				ExpectError: TestError404NotFound,
 			},
 		},
 	})
@@ -81,7 +81,7 @@ func TestAccPostVideo_WrongUpdate(t *testing.T) {
 			},
 			{
 				Config:      testPostVideoFailure,
-				ExpectError: error404NotFound,
+				ExpectError: TestError404NotFound,
 			},
 		},
 	})
@@ -95,7 +95,7 @@ func TestAccPostVideo_MissingParameters(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config:      testPostVideoMissingParameters,
-				ExpectError: mustBeAssigned,
+				ExpectError: TestMustBeAssigned,
 			},
 		},
 	})

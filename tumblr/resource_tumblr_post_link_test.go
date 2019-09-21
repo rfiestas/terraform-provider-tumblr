@@ -60,7 +60,7 @@ func TestAccPostLink_WrongCreate(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config:      testPostLinkFailure,
-				ExpectError: error404NotFound,
+				ExpectError: TestError404NotFound,
 			},
 		},
 	})
@@ -81,7 +81,7 @@ func TestAccPostLink_WrongUpdate(t *testing.T) {
 			},
 			{
 				Config:      testPostLinkFailure,
-				ExpectError: error404NotFound,
+				ExpectError: TestError404NotFound,
 			},
 		},
 	})

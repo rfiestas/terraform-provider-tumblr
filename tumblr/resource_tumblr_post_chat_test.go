@@ -12,7 +12,7 @@ import (
 	"github.com/tumblr/tumblrclient.go"
 )
 
-//var error404NotFound = regexp.MustCompile("404 Not Found")
+//var TestError404NotFound = regexp.MustCompile("404 Not Found")
 
 func TestAccPostChat_Basic(t *testing.T) {
 	resource.Test(t, resource.TestCase{
@@ -62,7 +62,7 @@ func TestAccPostChat_WrongCreate(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config:      testPostChatFailure,
-				ExpectError: error404NotFound,
+				ExpectError: TestError404NotFound,
 			},
 		},
 	})
@@ -83,7 +83,7 @@ func TestAccPostChat_WrongUpdate(t *testing.T) {
 			},
 			{
 				Config:      testPostChatFailure,
-				ExpectError: error404NotFound,
+				ExpectError: TestError404NotFound,
 			},
 		},
 	})

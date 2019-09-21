@@ -60,7 +60,7 @@ func TestAccPostPhoto_WrongCreate(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config:      testPostPhotoFailure,
-				ExpectError: error404NotFound,
+				ExpectError: TestError404NotFound,
 			},
 		},
 	})
@@ -81,7 +81,7 @@ func TestAccPostPhoto_WrongUpdate(t *testing.T) {
 			},
 			{
 				Config:      testPostPhotoFailure,
-				ExpectError: error404NotFound,
+				ExpectError: TestError404NotFound,
 			},
 		},
 	})
@@ -95,7 +95,7 @@ func TestAccPostPhoto_MissingParameters(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config:      testPostPhotoMissingParameters,
-				ExpectError: mustBeAssigned,
+				ExpectError: TestMustBeAssigned,
 			},
 		},
 	})

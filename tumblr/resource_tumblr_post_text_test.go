@@ -3,7 +3,6 @@ package tumblr
 import (
 	"fmt"
 	"net/url"
-	"regexp"
 	"strings"
 	"testing"
 
@@ -12,9 +11,6 @@ import (
 	"github.com/tumblr/tumblr.go"
 	"github.com/tumblr/tumblrclient.go"
 )
-
-var error404NotFound = regexp.MustCompile("404 Not Found")
-var mustBeAssigned = regexp.MustCompile("must be assigned")
 
 func TestAccPostText_Basic(t *testing.T) {
 	resource.Test(t, resource.TestCase{
@@ -64,7 +60,7 @@ func TestAccPostText_WrongCreate(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config:      testPostTextFailure,
-				ExpectError: error404NotFound,
+				ExpectError: TestError404NotFound,
 			},
 		},
 	})
@@ -85,7 +81,7 @@ func TestAccPostText_WrongUpdate(t *testing.T) {
 			},
 			{
 				Config:      testPostTextFailure,
-				ExpectError: error404NotFound,
+				ExpectError: TestError404NotFound,
 			},
 		},
 	})
