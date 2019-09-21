@@ -15,11 +15,12 @@ func validateState(v interface{}, k string) (ws []string, es []error) {
 		return warns, errs
 	}
 
-	for _, v := range stateList {
-		if v == value {
+	for _, item := range stateList {
+		if item == value {
 			return warns, errs
 		}
 	}
 	errs = append(errs, fmt.Errorf("State '%s' is not valid. Choose one of these: %v", value, stateList))
+
 	return warns, errs
 }
