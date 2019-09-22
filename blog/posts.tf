@@ -75,3 +75,10 @@ resource "tumblr_post_photo" "apollo12" {
     
 }
 
+resource "tumblr_post_text" "post_help" {
+    blog  = "${var.blog}"
+    title = "Post Parameters help"
+    body  = "${file("resources/post_help.html")}"
+    state = "published"
+    tags  = "terraform,terraform provider,tumblr,text"
+}

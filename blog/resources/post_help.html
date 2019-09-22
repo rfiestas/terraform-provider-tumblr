@@ -1,0 +1,91 @@
+<h2>Post Parameters</h2>
+These parameters are available for all Post types:</p>
+<p><code>blog</code>, <code>state</code>, <code>tags</code>, <code>date</code></p>
+<p>Get more information about parameters on official tumblr documentation, you can find it <a href="https://www.tumblr.com/docs/en/api/v2#post--create-a-new-blog-post-legacy">here</a>.</p>
+<p><h2>Text Posts</h2>
+Parameters implemented:
+<code>title</code>, <code>body</code></p>
+<pre class="language-terraform"><code>resource &quot;tumblr_post_text&quot; &quot;first_text&quot; {
+    blog  = &quot;my_blog&quot;
+    title = &quot;First text applied by terraform-provider-tumblr&quot;
+    body  = &quot;First text applied by terraform-provider-tumblr.&quot;
+    state = &quot;published&quot;
+    tags  = &quot;terraform,terraform provider,tumblr,text&quot;
+    date  = &quot;2006-01-02 15:04:05&quot;
+}
+</code></pre>
+<h2>Photo Posts</h2>
+Parameters implemented:
+<code>caption</code>, <code>link</code>, <code>source</code>, <code>data64</code></p>
+<pre class="language-terraform"><code>resource &quot;tumblr_post_photo&quot; &quot;first_photo&quot; {
+    blog    = &quot;my_blog&quot;
+    caption = &quot;First image applied by terraform-provider-tumblr&quot;
+    link    = &quot;https://terraform-provider-for.tumblr.com/&quot;
+    data64  = &quot;${filebase64(&quot;terraform-logo.png&quot;)}&quot;
+    state   = &quot;published&quot;
+    tags    = &quot;terraform,terraform provider,tumblr,photo&quot;
+    date    = &quot;2006-01-02 15:04:05&quot;
+}
+</code></pre>
+<h2>Quote Posts</h2>
+Parameters implemented:
+<code>quote</code>, <code>source</code></p>
+<pre class="language-terraform"><code>resource &quot;tumblr_post_quote&quot; &quot;first_quote&quot; {
+    blog   = &quot;my_blog&quot;
+    quote  = &quot;Anyone can develop and distribute their own Terraform providers.&quot;
+    source = &quot;https://www.terraform.io/docs/configuration/providers.html#third-party-plugins&quot;
+    state  = &quot;published&quot;
+    tags   = &quot;terraform,terraform provider,tumblr,quote&quot;
+    date   = &quot;2006-01-02 15:04:05&quot;
+}
+</code></pre>
+<h2>Link Posts</h2>
+Parameters implemented:
+<code>title</code>, <code>url</code>, <code>description</code>, <code>thumbnail</code>, <code>excerpt</code>, <code>author</code></p>
+<pre class="language-terraform"><code>resource &quot;tumblr_post_link&quot; &quot;first_link&quot; {
+    blog        = &quot;my_blog&quot;
+    title       = &quot;terraform provider for tumblr&quot;
+    url         = &quot;https://github.com/rfiestas/terraform-provider-tumblr&quot;
+    description = &quot;The Tumblr provider is used to interact with the many resources supported by tumblr.com. The provider needs to be configured with the proper credentials before it can be used.&quot;
+    thumbnail   = &quot;https://repository-images.githubusercontent.com/206975372/3a24af00-d275-11e9-8c20-11bd31b5aaaf&quot;
+    state       = &quot;published&quot;
+    tags        = &quot;terraform,terraform provider,tumblr,link&quot;
+    date        = &quot;2006-01-02 15:04:05&quot;
+}
+</code></pre>
+<h2>Chat Posts</h2>
+Parameters implemented:
+<code>title</code>, <code>conversation</code></p>
+<pre class="language-terraform"><code>resource &quot;tumblr_post_chat&quot; &quot;first_chat&quot; {
+    blog         = &quot;my_blog&quot;
+    title        = &quot;First chat applied by terraform-provider-tumblr&quot;    
+    conversation = &quot;${file(&quot;resources/chat.txt&quot;)}&quot;
+    state        = &quot;published&quot;
+    tags         = &quot;terraform,terraform provider,tumblr,chat&quot;
+    date         = &quot;2006-01-02 15:04:05&quot;
+}
+</code></pre>
+<h2>Audio Posts</h2>
+Parameters implemented:
+<code>caption</code>, <code>external_url</code></p>
+<pre class="language-terraform"><code>resource &quot;tumblr_post_audio&quot; &quot;first_audio&quot; {
+    blog         = &quot;my_blog&quot;
+    caption      = &quot;First audio applied by terraform-provider-tumblr&quot;    
+    external_url = &quot;https://soundcloud.com/club-bizarre/free-download-kraftwerk-we-are&quot;
+    state        = &quot;published&quot;
+    tags         = &quot;terraform,terraform provider,tumblr,audio&quot;
+    date         = &quot;2006-01-02 15:04:05&quot;
+}
+</code></pre>
+<h2>Video Posts</h2>
+Parameters implemented:</p>
+<p><code>caption</code>, <code>embed</code></p>
+<pre class="language-terraform"><code>resource &quot;tumblr_post_video&quot; &quot;first_video&quot; {
+    blog         = &quot;my_blog&quot;
+    caption      = &quot;First video applied by terraform-provider-tumblr&quot;    
+    embed        = &quot;https://www.youtube.com/watch?v=TMayVLSQ6yM&quot;
+    state        = &quot;published&quot;
+    tags         = &quot;terraform,terraform provider,tumblr,video&quot;
+    date         = &quot;2006-01-02 15:04:05&quot;
+}
+</code></pre>
