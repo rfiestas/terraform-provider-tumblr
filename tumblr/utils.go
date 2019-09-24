@@ -48,7 +48,9 @@ func generateParams(d *schema.ResourceData, postType string, fields []string) ur
 	params.Add("type", postType)
 
 	for _, value := range fields {
-		params.Add(value, d.Get(value).(string))
+		if d.HasChange(value) {
+			params.Add(value, d.Get(value).(string))
+		}
 	}
 
 	return params
