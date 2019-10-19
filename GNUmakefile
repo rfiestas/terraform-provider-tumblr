@@ -54,7 +54,7 @@ cover: fmtcheck ## Launch acc tests and calculate coverage
 .PHONY: coveralls
 coveralls: fmtcheck ## Launch acc tests, calculate coverage and upload to coveralls service.COVERALLS_TOKEN env variable is needed.
 	TF_ACC=1 go test -v ./$(PKG_NAME)/ -covermode=count -coverprofile=coverage.out
-	${HOME}/go/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken ${COVERALLS_TOKEN}
+	${HOME}/go/bin/goveralls -coverprofile=coverage.out -repotoken ${COVERALLS_TOKEN}
 	rm coverage.out
 
 .PHONY: build
