@@ -31,10 +31,14 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v1
 
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.github_token }}
+      - name: Run Unit tests.
+        run: make coveralls
+        env:
+          COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+          USER_TOKEN: ${{ secrets.USER_TOKEN }}
+          USER_TOKEN_SECRET: ${{ secrets.USER_TOKEN_SECRET }}
 
   build:
     name: Build
