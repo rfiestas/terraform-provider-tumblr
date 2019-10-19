@@ -67,3 +67,4 @@ build: ## Build packages and dependencies
 	GOARCH=amd64 GOOS=windows go build -o bin/windows_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}.exe
 	GOARCH=amd64 GOOS=linux go build -o bin/linux_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}
 	GOARCH=amd64 GOOS=darwin go build -o bin/darwin_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}
+
