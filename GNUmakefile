@@ -51,11 +51,10 @@ cover: fmtcheck ## Launch acc tests and calculate coverage
 	go tool cover -html=coverage.out
 	rm coverage.out
 
-.PHONY: coveralls
-coveralls: fmtcheck ## Launch acc tests, calculate coverage and upload to coveralls service.COVERALLS_TOKEN env variable is needed.
-	TF_ACC=1 go test -v ./$(PKG_NAME)/ -covermode=count -coverprofile=coverage.out
-	${HOME}/go/bin/goveralls -coverprofile=coverage.out -repotoken ${COVERALLS_TOKEN}
-	rm coverage.out
+.PHONY: codecov
+codecov: fmtcheck ## Launch acc tests, calculate coverage and upload to codecov service.CODECOV_TOKEN env variable is needed.
+	TF_ACC=1 go test -v ./$(PKG_NAME)/ -race -coverprofile=coverage.txt -covermode=atomic
+	bash <(curl -s https://codecov.io/bash)
 
 .PHONY: build
 build: ## Build packages and dependencies

@@ -1,6 +1,6 @@
 # terraform-provider-tumblr 
 [![Build Status](https://github.com/rfiestas/terraform-provider-tumblr/workflows/Test/badge.svg)](https://github.com/rfiestas/terraform-provider-tumblr/actions)
-[![Coverage Status](https://coveralls.io/repos/github/rfiestas/terraform-provider-tumblr/badge.svg?branch=MASTER)](https://coveralls.io/github/rfiestas/terraform-provider-tumblr?branch=MASTER)
+[![codecov](https://codecov.io/gh/rfiestas/terraform-provider-tumblr/branch/master/graph/badge.svg)](https://codecov.io/gh/rfiestas/terraform-provider-tumblr)
 ![Scrutinizer code quality (GitHub/Bitbucket)](https://img.shields.io/scrutinizer/quality/g/rfiestas/terraform-provider-tumblr)
 [![Go Report Card](https://goreportcard.com/badge/github.com/rfiestas/terraform-provider-tumblr)](https://goreportcard.com/report/github.com/rfiestas/terraform-provider-tumblr)
 
