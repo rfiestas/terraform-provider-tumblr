@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/dghubble/oauth1 v0.6.0 // indirect
-	github.com/hashicorp/terraform v0.12.9
+	github.com/hashicorp/terraform v0.12.12
 	github.com/tumblr/tumblr.go v1.0.0
 	github.com/tumblr/tumblrclient.go v1.0.0
 )
