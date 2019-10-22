@@ -22,7 +22,6 @@ help: ## This help dialog.
 tools: ## Install testing tool packages
 	GO111MODULE=off go get -u golang.org/x/tools/cmd/cover
 	GO111MODULE=off go get -u golang.org/x/lint/golint	
-	GO111MODULE=off go get -u github.com/mattn/goveralls	
 
 .PHONY: fmt
 fmt: ## Fmt fixer
@@ -54,7 +53,8 @@ cover: fmtcheck ## Launch acc tests and calculate coverage
 .PHONY: codecov
 codecov: fmtcheck ## Launch acc tests, calculate coverage and upload to codecov service.CODECOV_TOKEN env variable is needed.
 	TF_ACC=1 go test -v ./$(PKG_NAME)/ -race -coverprofile=coverage.txt -covermode=atomic
-	sh <$(curl -s https://codecov.io/bash)
+	curl -s https://codecov.io/bash > codecov.sh
+	sh -c 'codecov.sh'
 
 .PHONY: build
 build: ## Build packages and dependencies
