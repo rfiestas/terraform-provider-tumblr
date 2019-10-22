@@ -22,7 +22,6 @@ help: ## This help dialog.
 tools: ## Install testing tool packages
 	GO111MODULE=off go get -u golang.org/x/tools/cmd/cover
 	GO111MODULE=off go get -u golang.org/x/lint/golint	
-	GO111MODULE=off go get -u github.com/mattn/goveralls	
 
 .PHONY: fmt
 fmt: ## Fmt fixer
@@ -51,11 +50,10 @@ cover: fmtcheck ## Launch acc tests and calculate coverage
 	go tool cover -html=coverage.out
 	rm coverage.out
 
-.PHONY: coveralls
-coveralls: fmtcheck ## Launch acc tests, calculate coverage and upload to coveralls service.COVERALLS_TOKEN env variable is needed.
-	TF_ACC=1 go test -v ./$(PKG_NAME)/ -covermode=count -coverprofile=coverage.out
-	${HOME}/go/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken ${COVERALLS_TOKEN}
-	rm coverage.out
+.PHONY: codecov
+codecov: fmtcheck ## Launch acc tests, calculate coverage and upload to codecov service.CODECOV_TOKEN env variable is needed.
+	TF_ACC=1 go test -v ./$(PKG_NAME)/ -race -coverprofile=coverage.txt -covermode=atomic
+	curl -s https://codecov.io/bash | bash
 
 .PHONY: build
 build: ## Build packages and dependencies
@@ -67,3 +65,4 @@ build: ## Build packages and dependencies
 	GOARCH=amd64 GOOS=windows go build -o bin/windows_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}.exe
 	GOARCH=amd64 GOOS=linux go build -o bin/linux_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}
 	GOARCH=amd64 GOOS=darwin go build -o bin/darwin_amd64/terraform-provider-$(PKG_NAME)_v${VERSION}
+

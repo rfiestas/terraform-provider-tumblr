@@ -1,8 +1,6 @@
 name: Test
 on:
   push:
-    branches:
-      - master
   pull_request:
 
 jobs:
@@ -34,9 +32,9 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Run Unit tests.
-        run: make coveralls
+        run: make codecov
         env:
-          COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
           CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
           USER_TOKEN: ${{ secrets.USER_TOKEN }}
