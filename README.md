@@ -11,7 +11,7 @@ A [Terraform](https://www.terraform.io) Custom Provider for [tumblr](https://www
 
 ## Description
 
-This is a custom terraform provider for managing common resources within the tumblr site platform, such as Transformations, Orchestrations, Writers etc.
+This is a custom terraform provider for managing common resources within the tumblr site platform, such as texts, photos, quotes etc.
 
 ## Supported Resources
 
