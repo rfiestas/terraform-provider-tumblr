@@ -54,7 +54,7 @@ cover: fmtcheck ## Launch acc tests and calculate coverage
 .PHONY: codecov
 codecov: fmtcheck ## Launch acc tests, calculate coverage and upload to codecov service.CODECOV_TOKEN env variable is needed.
 	TF_ACC=1 go test -v ./$(PKG_NAME)/ -race -coverprofile=coverage.txt -covermode=atomic
-	bash <(curl -s https://codecov.io/bash)
+	sh <$(curl -s https://codecov.io/bash)
 
 .PHONY: build
 build: ## Build packages and dependencies
