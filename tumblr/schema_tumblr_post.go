@@ -1,6 +1,6 @@
 package tumblr
 
-import "github.com/hashicorp/terraform/helper/schema"
+import "github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 
 var fieldsAllPosts = []string{"state", "tags", "date", "format", "slug"}
 
