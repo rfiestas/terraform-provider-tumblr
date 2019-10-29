@@ -65,6 +65,7 @@ func slugPostSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:        schema.TypeString,
 		Optional:    true,
+		Computed:    true,
 		Description: descriptions["slug"],
 		Removed:     "Pending to implement, default is dynamic",
 	}

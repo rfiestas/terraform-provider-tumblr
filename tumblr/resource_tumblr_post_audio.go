@@ -82,12 +82,7 @@ func resourcePostAudioRead(d *schema.ResourceData, m interface{}) error {
 		return err
 	}
 
-	for _, key := range append(fieldsAllPosts, fieldsAudioPosts...) {
-		value, err := res.Get(0).GetProperty(toCamelCase(key))
-		if err == nil {
-			d.Set(key, value)
-		}
-	}
+	setPostSets(d, res)
 
 	return nil
 }
