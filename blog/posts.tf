@@ -22,7 +22,7 @@ resource "tumblr_post_photo" "first_photo" {
     blog        = "${var.blog}"
     caption     = "First image applied by terraform-provider-tumblr"
     link        = "https://terraform-provider-for.tumblr.com/"
-    data64      = "${filebase64("/Users/rfiestas/Downloads/terraform-logo.png")}"
+    data64      = "/Users/rfiestas/Downloads/terraform-logo.png"
     //state     = "published"
     tags        = "terraform,terraform provider,tumblr,photo"
     //date      = "2006-01-02 15:04:05 GMT"
