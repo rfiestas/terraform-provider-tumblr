@@ -11,7 +11,7 @@ Parameters implemented:
     body  = &quot;First text applied by terraform-provider-tumblr.&quot;
     state = &quot;published&quot;
     tags  = &quot;terraform,terraform provider,tumblr,text&quot;
-    date  = &quot;2006-01-02 15:04:05&quot;
+    date  = &quot;2006-01-02 15:04:05 GMT&quot;
 }
 </code></pre>
 <h2>Photo Posts</h2>
@@ -21,10 +21,10 @@ Parameters implemented:
     blog    = &quot;my_blog&quot;
     caption = &quot;First image applied by terraform-provider-tumblr&quot;
     link    = &quot;https://terraform-provider-for.tumblr.com/&quot;
-    data64  = &quot;${filebase64(&quot;terraform-logo.png&quot;)}&quot;
+    data64  = &quot;terraform-logo.png&quot;
     state   = &quot;published&quot;
     tags    = &quot;terraform,terraform provider,tumblr,photo&quot;
-    date    = &quot;2006-01-02 15:04:05&quot;
+    date    = &quot;2006-01-02 15:04:05 GMT&quot;
 }
 </code></pre>
 <h2>Quote Posts</h2>
@@ -36,7 +36,7 @@ Parameters implemented:
     source = &quot;https://www.terraform.io/docs/configuration/providers.html#third-party-plugins&quot;
     state  = &quot;published&quot;
     tags   = &quot;terraform,terraform provider,tumblr,quote&quot;
-    date   = &quot;2006-01-02 15:04:05&quot;
+    date   = &quot;2006-01-02 15:04:05 GMT&quot;
 }
 </code></pre>
 <h2>Link Posts</h2>
@@ -50,7 +50,7 @@ Parameters implemented:
     thumbnail   = &quot;https://repository-images.githubusercontent.com/206975372/3a24af00-d275-11e9-8c20-11bd31b5aaaf&quot;
     state       = &quot;published&quot;
     tags        = &quot;terraform,terraform provider,tumblr,link&quot;
-    date        = &quot;2006-01-02 15:04:05&quot;
+    date        = &quot;2006-01-02 15:04:05 GMT&quot;
 }
 </code></pre>
 <h2>Chat Posts</h2>
@@ -62,7 +62,7 @@ Parameters implemented:
     conversation = &quot;${file(&quot;resources/chat.txt&quot;)}&quot;
     state        = &quot;published&quot;
     tags         = &quot;terraform,terraform provider,tumblr,chat&quot;
-    date         = &quot;2006-01-02 15:04:05&quot;
+    date         = &quot;2006-01-02 15:04:05 GMT&quot;
 }
 </code></pre>
 <h2>Audio Posts</h2>
@@ -74,7 +74,7 @@ Parameters implemented:
     external_url = &quot;https://soundcloud.com/club-bizarre/free-download-kraftwerk-we-are&quot;
     state        = &quot;published&quot;
     tags         = &quot;terraform,terraform provider,tumblr,audio&quot;
-    date         = &quot;2006-01-02 15:04:05&quot;
+    date         = &quot;2006-01-02 15:04:05 GMT&quot;
 }
 </code></pre>
 <h2>Video Posts</h2>
@@ -86,6 +86,6 @@ Parameters implemented:</p>
     embed        = &quot;https://www.youtube.com/watch?v=TMayVLSQ6yM&quot;
     state        = &quot;published&quot;
     tags         = &quot;terraform,terraform provider,tumblr,video&quot;
-    date         = &quot;2006-01-02 15:04:05&quot;
+    date         = &quot;2006-01-02 15:04:05 GMT&quot;
 }
 </code></pre>
