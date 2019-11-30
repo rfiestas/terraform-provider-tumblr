@@ -40,7 +40,7 @@ func Test_validateState(t *testing.T) {
 			args: args{
 				v: 1,
 			},
-			wantEs: []error{fmt.Errorf("Expected name to be string")},
+			wantEs: []error{fmt.Errorf(errorString)},
 		},
 	}
 	for _, tt := range tests {
@@ -87,7 +87,7 @@ func Test_validateDate(t *testing.T) {
 			args: args{
 				v: 1,
 			},
-			wantEs: []error{fmt.Errorf("Expected name to be string")},
+			wantEs: []error{fmt.Errorf(errorString)},
 		},
 	}
 	for _, tt := range tests {
@@ -166,7 +166,7 @@ func Test_validateData64(t *testing.T) {
 				v: 1,
 			},
 			wantWs: nil,
-			wantEs: "Expected name to be string",
+			wantEs: errorString,
 		},
 	}
 	for _, tt := range testsContains {

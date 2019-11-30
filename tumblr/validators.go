@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+const errorString = "Expected name to be string"
+
 func validateState(v interface{}, k string) (ws []string, es []error) {
 	var errs []error
 	var warns []string
@@ -13,7 +15,7 @@ func validateState(v interface{}, k string) (ws []string, es []error) {
 
 	value, ok := v.(string)
 	if !ok {
-		errs = append(errs, fmt.Errorf("Expected name to be string"))
+		errs = append(errs, fmt.Errorf(errorString))
 		return warns, errs
 	}
 
@@ -32,7 +34,7 @@ func validateDate(v interface{}, k string) (ws []string, es []error) {
 	var warns []string
 	value, ok := v.(string)
 	if !ok {
-		errs = append(errs, fmt.Errorf("Expected name to be string"))
+		errs = append(errs, fmt.Errorf(errorString))
 		return warns, errs
 	}
 
@@ -49,7 +51,7 @@ func validateData64(v interface{}, k string) (ws []string, es []error) {
 	var warns []string
 	value, ok := v.(string)
 	if !ok {
-		errs = append(errs, fmt.Errorf("Expected name to be string"))
+		errs = append(errs, fmt.Errorf(errorString))
 		return warns, errs
 	}
 
