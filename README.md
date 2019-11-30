@@ -1,11 +1,11 @@
 # terraform-provider-tumblr 
 [![Build Status](https://github.com/rfiestas/terraform-provider-tumblr/workflows/Test/badge.svg)](https://github.com/rfiestas/terraform-provider-tumblr/actions)
 [![codecov](https://codecov.io/gh/rfiestas/terraform-provider-tumblr/branch/master/graph/badge.svg)](https://codecov.io/gh/rfiestas/terraform-provider-tumblr)
-![Scrutinizer code quality (GitHub/Bitbucket)](https://img.shields.io/scrutinizer/quality/g/rfiestas/terraform-provider-tumblr)
+[![Scrutinizer code quality](https://img.shields.io/scrutinizer/quality/g/rfiestas/terraform-provider-tumblr)](https://scrutinizer-ci.com/g/rfiestas/terraform-provider-tumblr/?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/rfiestas/terraform-provider-tumblr)](https://goreportcard.com/report/github.com/rfiestas/terraform-provider-tumblr)
 
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rfiestas/terraform-provider-tumblr)
-![GitHub](https://img.shields.io/github/license/rfiestas/terraform-provider-tumblr)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rfiestas/terraform-provider-tumblr)](https://github.com/rfiestas/terraform-provider-tumblr/releases)
+[![GitHub](https://img.shields.io/github/license/rfiestas/terraform-provider-tumblr)](https://github.com/rfiestas/terraform-provider-tumblr/blob/master/LICENSE)
 
 A [Terraform](https://www.terraform.io) Custom Provider for [tumblr](https://www.tumblr.com).
 

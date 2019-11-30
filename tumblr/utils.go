@@ -2,13 +2,16 @@ package tumblr
 
 import (
 	"crypto/md5"
+	"encoding/base64"
 	"encoding/hex"
+	"io/ioutil"
 	"net/url"
 	"regexp"
 	"strconv"
 	"strings"
 
-	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/tumblr/tumblr.go"
 )
 
 var camelCase = regexp.MustCompile("(^[A-Za-z])|_([A-Za-z])")
@@ -36,6 +39,15 @@ func stringToMd5(str string) string {
 	return returnMD5String
 }
 
+func fileBase64(file string) string {
+	src, err := ioutil.ReadFile(file)
+	if err != nil {
+		return ""
+	}
+	enc := base64.StdEncoding.EncodeToString(src)
+	return enc
+}
+
 // toCamelCase foo_var_foo_var to FooVarFooVar
 func toCamelCase(str string) string {
 	return camelCase.ReplaceAllStringFunc(str, func(s string) string {
@@ -54,4 +66,13 @@ func generateParams(d *schema.ResourceData, postType string, fields []string) ur
 	}
 
 	return params
+}
+
+// Set common fields, some non common fields are not returned by tumblr go client.
+func setPostSets(d *schema.ResourceData, res *tumblr.Posts) {
+	d.Set("state", res.Get(0).GetSelf().State)
+	d.Set("state", res.Get(0).GetSelf().Tags)
+	d.Set("date", res.Get(0).GetSelf().Date)
+	d.Set("format", res.Get(0).GetSelf().Format)
+	d.Set("slug", res.Get(0).GetSelf().Slug)
 }

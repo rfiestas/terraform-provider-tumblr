@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"github.com/tumblr/tumblr.go"
 	"github.com/tumblr/tumblrclient.go"
 )
 
-var fieldsPhotoPosts = []string{"caption", "link", "source", "data64"}
+var fieldsPhotoPosts = []string{"caption", "link", "source"}
 
 func resourcePostPhoto() *schema.Resource {
 	return &schema.Resource{
@@ -53,8 +53,9 @@ func resourcePostPhoto() *schema.Resource {
 				Optional:      true,
 				Description:   descriptions["data64"],
 				ConflictsWith: []string{"source", "data"},
+				ValidateFunc:  validateData64,
 				StateFunc: func(val interface{}) string {
-					return stringToMd5(val.(string))
+					return stringToMd5(fileBase64(val.(string)))
 				},
 			},
 		},
@@ -66,7 +67,7 @@ func resourcePostPhotoCreate(d *schema.ResourceData, m interface{}) error {
 
 	_, sourceOk := d.GetOk("source")
 	_, dataOk := d.GetOk("data")
-	_, data64Ok := d.GetOk("data64")
+	data64, data64Ok := d.GetOk("data64")
 
 	if !sourceOk && !dataOk && !data64Ok {
 		d.SetId("")
@@ -74,6 +75,9 @@ func resourcePostPhotoCreate(d *schema.ResourceData, m interface{}) error {
 	}
 
 	params := generateParams(d, "photo", append(fieldsAllPosts, fieldsPhotoPosts...))
+	if data64Ok {
+		params.Add("data64", fileBase64(data64.(string)))
+	}
 	res, err := tumblr.CreatePost(client, d.Get("blog").(string), params)
 	if err != nil {
 		d.SetId("")
@@ -97,12 +101,7 @@ func resourcePostPhotoRead(d *schema.ResourceData, m interface{}) error {
 		return err
 	}
 
-	for _, key := range append(fieldsAllPosts, fieldsPhotoPosts...) {
-		value, err := res.Get(0).GetProperty(toCamelCase(key))
-		if err == nil {
-			d.Set(key, value)
-		}
-	}
+	setPostSets(d, res)
 
 	return nil
 }
@@ -111,6 +110,9 @@ func resourcePostPhotoUpdate(d *schema.ResourceData, m interface{}) error {
 	client := m.(*tumblrclient.Client)
 
 	params := generateParams(d, "photo", append(fieldsAllPosts, fieldsPhotoPosts...))
+	if d.HasChange("data64") {
+		params.Add("data64", fileBase64(d.Get("data64").(string)))
+	}
 	err := tumblr.EditPost(client, d.Get("blog").(string), stringToUint(d.Id()), params)
 	if err != nil {
 		d.SetId("")
