@@ -2,7 +2,9 @@ package tumblr
 
 import (
 	"crypto/md5"
+	"encoding/base64"
 	"encoding/hex"
+	"io/ioutil"
 	"net/url"
 	"regexp"
 	"strconv"
@@ -35,6 +37,15 @@ func stringToMd5(str string) string {
 	returnMD5String = hex.EncodeToString(hasher.Sum(nil))
 
 	return returnMD5String
+}
+
+func fileBase64(file string) string {
+	src, err := ioutil.ReadFile(file)
+	if err != nil {
+		return ""
+	}
+	enc := base64.StdEncoding.EncodeToString(src)
+	return enc
 }
 
 // toCamelCase foo_var_foo_var to FooVarFooVar

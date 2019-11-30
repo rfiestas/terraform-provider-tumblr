@@ -123,7 +123,7 @@ var testPostPhotoBasic = fmt.Sprintf(`
 resource "tumblr_post_photo" "first_photo" {
 	blog    = "%s"
 	caption = "caption_first_photo"
-	data64  = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
+	data64  = "./../blog/resources/existing_file.png"
 	state   = "published"
 	tags    = "terraform,terraform provider,tumblr,photo,test"
 }
@@ -140,7 +140,7 @@ const testPostPhotoFailure = `
 resource "tumblr_post_photo" "first_photo" {
 	blog    = "NoExistInTumblr"
 	caption = "caption_first_photo_failure"
-	data64  = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
+	data64  = "./../blog/resources/existing_file.png"
 	state   = "published"
 	tags    = "terraform,terraform provider,tumblr,photo,test"
 }
