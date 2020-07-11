@@ -31,6 +31,9 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v1
 
+      - name: Install curl
+        run: sudo apt-get install curl
+
       - name: Run Unit tests.
         run: make codecov
         env:
